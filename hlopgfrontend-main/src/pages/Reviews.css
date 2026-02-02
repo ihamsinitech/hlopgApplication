@@ -1,0 +1,129 @@
+/* ================= REVIEWS CONTAINER ================= */
+.reviews-container {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  margin-top: 20px;
+  
+}
+
+/* ================= TITLE ================= */
+.reviews-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 24px;
+  padding-left: 14px;
+  border-left: 4px solid #000000;
+}
+
+/* ================= GRID ================= */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+/* ================= REVIEW CARD ================= */
+.review-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.review-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ================= HEADER ================= */
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ================= AVATAR ================= */
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f3f4f6;
+}
+
+/* ================= REVIEWER INFO ================= */
+.reviewer-info h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.reviewer-info p {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* ================= REVIEW TEXT ================= */
+.review-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #374151;
+}
+
+/* ================= STARS ================= */
+.stars {
+  display: flex;
+  gap: 4px;
+  margin-top: auto;
+}
+
+/* ================= EMPTY / LOADING TEXT ================= */
+.reviews-container p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .reviews-container {
+    padding: 20px;
+  }
+
+  .reviews-title {
+    font-size: 20px;
+  }
+
+  .review-card {
+    padding: 16px;
+  }
+
+  .avatar {
+    width: 44px;
+    height: 44px;
+  }
+
+  .review-text {
+    font-size: 13.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-grid {
+    gap: 16px;
+  }
+
+  .reviews-title {
+    font-size: 18px;
+  }
+}

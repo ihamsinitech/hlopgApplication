@@ -1,0 +1,670 @@
+/* HostelPage.css */
+
+/* ===== GLOBAL RESET ===== */
+.hostel-page * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.hostel-page {
+  font-family: "Inter", sans-serif;
+  color: #000000;
+  background: #ffffff;
+  min-height: 100vh;
+  padding: 20px;
+  padding-top: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== LOADING & ERROR STATES ===== */
+.hostel-page .loading,
+.hostel-page .error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #666;
+}
+
+/* ===== MAIN LAYOUT ===== */
+.hostel-main {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 0 auto 40px;
+}
+
+/* ===== IMAGE SECTION ===== */
+.hostel-images {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+/* Main Image Container */
+.main-img {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+}
+
+.main-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.main-img:hover img {
+  transform: scale(1.02);
+}
+
+/* Navigation Arrows */
+.arrow-left,
+.arrow-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.arrow-left:hover,
+.arrow-right:hover {
+  background: #7b4dff;
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.arrow-left {
+  left: 15px;
+}
+
+.arrow-right {
+  right: 15px;
+}
+
+/* Thumbnail Container */
+.thumbnail-container {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 10px 5px;
+  scrollbar-width: thin;
+  scrollbar-color: #7b4dff #f0f0f0;
+}
+
+.thumbnail-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.thumbnail-container::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.thumbnail-container::-webkit-scrollbar-thumb {
+  background: #7b4dff;
+  border-radius: 10px;
+}
+
+.thumbnail-container img {
+  width: 100px;
+  height: 70px;
+  border-radius: 8px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.thumbnail-container img:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(123, 77, 255, 0.2);
+}
+
+.thumbnail-container img.active-thumb {
+  border: 2px solid #7b4dff;
+  box-shadow: 0 4px 12px rgba(123, 77, 255, 0.3);
+}
+
+/* ===== DETAILS SECTION ===== */
+.hostel-details {
+  flex: 1.5;
+  min-width: 300px;
+  padding: 20px;
+}
+
+/* Header */
+.hostel-details h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.hostel-details p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.hostel-details .black-text {
+  color: #000000;
+}
+
+/* Price/Sharing Section */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 10px 0px;
+  padding: 10px;
+  margin-top: 0px;
+}
+
+/* .stat-container {
+  flex: 1;
+  min-width: 150px;
+} */
+
+/* .stat-btn {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+} */
+
+/* .stat-btn:hover {
+  background: #7b4dff;
+  color: white;
+  border-color: #7b4dff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(123, 77, 255, 0.2);
+} */
+
+/* Sections Headers */
+.hostel-details h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #333;
+  margin: 30px 0 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #7b4dff;
+  display: inline-block;
+}
+
+/* Amenities & Rules */
+.furnished-icons,
+.pg-rules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.furnished-icons span,
+.pg-rules span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #f0f4ff;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.furnished-icons span:hover,
+.pg-rules span:hover {
+  background: #e6ebff;
+  transform: translateY(-2px);
+}
+
+.furnished-icons svg,
+.pg-rules svg {
+  color: #7b4dff;
+  font-size: 1.1rem;
+}
+
+/* ===== REVIEWS SECTION ===== */
+
+.reviews-section {
+  margin: 20px 0;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 0px;
+}
+
+.reviews-section h2 {
+  text-align: left;
+  font-size: 1.8rem;
+  color: #1a1a1a;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* Rating Overview */
+.rating-overviews {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.avg-rating {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.rating-number {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.total-reviews {
+  color: #666;
+  font-size: 0.95rem;
+  margin-left: 10px;
+}
+
+/* Stars Container */
+.stars-container {
+  display: flex;
+  gap: 6px;
+}
+
+.review-star {
+  color: #FFD700;
+  font-size: 20px;
+}
+
+/* Reviews List */
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Review Item */
+.review-item {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+.review-item:hover {
+  border-color: #ddd;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Reviewer Info */
+.reviewer-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.reviewer-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #eaeaea;
+}
+
+.reviewer-name {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.review-date {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* Review Content */
+.review-content {
+  margin-left: 65px;
+}
+
+.review-text {
+  margin: 12px 0 0;
+  color: #555;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* View All Reviews Button */
+.view-all-reviews {
+  margin-top: 25px;
+  padding: 12px 30px;
+  background: transparent;
+  border: 2px solid #7b4dff;
+  color: #7b4dff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.view-all-reviews:hover {
+  background: #7b4dff;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .reviews-section {
+    padding: 20px;
+    margin: 30px 0;
+  }
+  
+  .reviews-section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .rating-overview {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+  }
+  
+  .rating-number {
+    font-size: 2.5rem;
+  }
+  
+  .review-item {
+    padding: 20px;
+  }
+  
+  .review-content {
+    margin-left: 0;
+    margin-top: 15px;
+  }
+  
+  .reviewer-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .reviewer-avatar {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-section {
+    padding: 15px;
+  }
+  
+  .review-item {
+    padding: 15px;
+  }
+  
+  .view-all-reviews {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ===== FOOD MENU ===== */
+.food-menu {
+  max-width: 1400px;
+  margin: 0 auto 40px;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 16px;
+}
+
+.food-menu h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #1a1a1a;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #7b4dff;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.food-menu table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.food-menu thead {
+  background: linear-gradient(135deg, #7b4dff, #5a2fd4);
+}
+
+.food-menu th {
+  padding: 18px 15px;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.food-menu tbody tr {
+  transition: background 0.3s ease;
+}
+
+.food-menu tbody tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.food-menu tbody tr:hover {
+  background: #f0f4ff;
+}
+
+.food-menu td {
+  padding: 16px 15px;
+  text-align: center;
+  color: #333;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.food-menu td:first-child {
+  font-weight: 600;
+  color: #7b4dff;
+}
+
+/* ===== BOOK NOW BUTTON ===== */
+.book-now {
+  text-align: center;
+  margin: 40px 0;
+  
+}
+
+.book-now-btn {
+  background: linear-gradient(135deg, #7b4dff, #5a2fd4);
+  color: white;
+  border: none;
+  padding: 16px 48px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(123, 77, 255, 0.3);
+  letter-spacing: 0.5px;
+  width: 1000px;
+}
+
+.book-now-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(123, 77, 255, 0.4);
+  background: linear-gradient(135deg, #5a2fd4, #7b4dff);
+}
+
+.book-now-btn:active {
+  transform: translateY(-1px);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+  .hostel-main {
+    gap: 20px;
+  }
+  
+  .main-img {
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hostel-page {
+    padding: 15px;
+    padding-top: 70px;
+  }
+  
+  .hostel-main {
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  .main-img {
+    height: 300px;
+  }
+  
+  .arrow-left,
+  .arrow-right {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+  
+  .hostel-details {
+    padding: 15px;
+  }
+  
+  .hostel-details h2 {
+    font-size: 1.6rem;
+  }
+  
+  .stats {
+    padding: 15px;
+  }
+  
+  .stat-btn {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+  }
+  
+  .food-menu {
+    padding: 20px 15px;
+  }
+  
+  .food-menu th,
+  .food-menu td {
+    padding: 12px 10px;
+    font-size: 0.9rem;
+  }
+  
+  .book-now-btn {
+    padding: 14px 40px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-img {
+    height: 250px;
+  }
+  
+  .thumbnail-container img {
+    width: 80px;
+    height: 60px;
+  }
+  
+  .hostel-details h2 {
+    font-size: 1.4rem;
+  }
+  
+  .furnished-icons span,
+  .pg-rules span {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .review-card {
+    padding: 15px;
+  }
+  
+  .food-menu {
+    padding: 15px 10px;
+  }
+  
+  .food-menu th,
+  .food-menu td {
+    padding: 10px 8px;
+    font-size: 0.85rem;
+  }
+}
