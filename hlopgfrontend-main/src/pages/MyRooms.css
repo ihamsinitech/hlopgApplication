@@ -1,19 +1,23 @@
-/* src/pages/MyRooms.css */
+/* MyRooms.css - Complete Styles */
+
 .myrooms-container {
   padding: 20px;
   max-width: 1400px;
   margin: 0 auto;
+  min-height: 100vh;
+  background: #f8f9fa;
 }
 
+/* Header Styles */
 .myrooms-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
   background: white;
-  padding: 20px;
+  padding: 20px 25px;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .pg-selector {
@@ -26,6 +30,7 @@
   margin: 0;
   font-size: 18px;
   color: #333;
+  font-weight: 600;
 }
 
 .pg-dropdown {
@@ -34,32 +39,43 @@
   border-radius: 8px;
   font-size: 16px;
   background: white;
-  min-width: 300px;
+  min-width: 350px;
   cursor: pointer;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
 }
 
 .pg-dropdown:focus {
   border-color: #4CAF50;
   outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
-.add-room-btn {
-  background: #4CAF50;
-  color: white;
-  border: none;
-  padding: 12px 24px;
+.header-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.refresh-btn {
+  background: #f5f5f5;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
   border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
 }
 
-.add-room-btn:hover {
-  background: #45a049;
+.refresh-btn:hover {
+  background: #e9e9e9;
+  border-color: #ccc;
 }
 
+/* PG Info Summary */
 .pg-info-summary {
   margin-bottom: 30px;
 }
@@ -72,32 +88,80 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+.summary-header {
+  margin-bottom: 20px;
+}
+
 .summary-card h3 {
   margin: 0 0 10px 0;
   font-size: 24px;
+  font-weight: 600;
 }
 
-.summary-card p {
-  margin: 0 0 20px 0;
+.pg-location {
+  margin: 0;
   opacity: 0.9;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
+/* Configuration Display */
+.config-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin: 15px 0;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.config-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.config-label {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.config-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+/* Summary Stats */
 .summary-stats {
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .stat {
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
+  min-width: 120px;
 }
 
 .stat-label {
   font-size: 14px;
   opacity: 0.8;
   margin-bottom: 5px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .stat-value {
@@ -105,163 +169,120 @@
   font-weight: bold;
 }
 
+.occupied-count {
+  color: #FF9800;
+}
+
+.vacant-count {
+  color: #4CAF50;
+}
+
+.revenue-count {
+  color: #2196F3;
+}
+
+/* Floor Section Layout - Image Style */
 .floor-section {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
   background: white;
-  padding: 25px;
+  padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
+.floor-header {
+  margin-bottom: 20px;
+}
+
 .floor-title {
-  margin: 0 0 20px 0;
+  margin: 0;
   padding-bottom: 10px;
   border-bottom: 2px solid #f0f0f0;
   color: #333;
-  font-size: 20px;
+  font-size: 22px;
+  font-weight: 600;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.rooms-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+.floor-title:before {
+  content: "━";
+  color: #4CAF50;
+}
+
+/* Floor Stats */
+.floor-stats {
+  display: flex;
   gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  padding: 8px;
+  background: #f9f9f9;
+  border-radius: 6px;
 }
 
-.room-card {
-  border: 2px solid #e0e0e0;
-  border-radius: 10px;
-  padding: 20px;
+.floor-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.stat-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.vacant-dot {
+  background: #4CAF50;
+}
+
+.occupied-dot {
+  background: #2196F3;
+}
+
+.maintenance-dot {
+  background: #ff9800;
+}
+
+/* Simple Room Numbers Display (like image) */
+.rooms-simple-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.room-simple-box {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.room-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+.room-simple-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.room-card.vacant {
-  border-color: #4CAF50;
-  background: linear-gradient(to right, #f9fff9, white);
-}
-
-.room-card.occupied {
-  border-color: #2196F3;
-  background: linear-gradient(to right, #f5fbff, white);
-}
-
-.room-card.maintenance {
-  border-color: #ff9800;
-  background: linear-gradient(to right, #fff9f0, white);
-}
-
-.room-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.room-number {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-}
-
-.room-status {
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.room-status.vacant {
-  background: #e8f5e9;
-  color: #2e7d32;
-}
-
-.room-status.occupied {
-  background: #e3f2fd;
-  color: #1565c0;
-}
-
-.room-status.maintenance {
-  background: #fff3e0;
-  color: #ef6c00;
-}
-
-.room-details {
-  margin-bottom: 15px;
-}
-
-.sharing-type {
-  font-size: 16px;
-  color: #666;
-  margin: 5px 0;
-}
-
-.room-rent {
+.room-simple-number {
+  color: white;
   font-size: 20px;
   font-weight: bold;
-  color: #333;
-  margin: 10px 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-.tenant-info {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px dashed #e0e0e0;
-}
-
-.tenant-info p {
-  margin: 5px 0;
-  font-size: 14px;
-  color: #666;
-}
-
-.vacant-badge {
-  display: inline-block;
-  background: #4CAF50;
-  color: white;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
-  margin-top: 10px;
-}
-
-.room-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.edit-btn, .view-btn {
-  flex: 1;
-  padding: 8px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: opacity 0.3s;
-}
-
-.edit-btn {
-  background: #ff9800;
-  color: white;
-}
-
-.view-btn {
-  background: #2196F3;
-  color: white;
-}
-
-.edit-btn:hover, .view-btn:hover {
-  opacity: 0.9;
-}
-
+/* Loading States */
 .myrooms-loading,
 .myrooms-empty,
 .rooms-loading {
@@ -286,6 +307,7 @@
 .spinner.small {
   width: 30px;
   height: 30px;
+  border-width: 3px;
 }
 
 @keyframes spin {
@@ -296,174 +318,151 @@
 .empty-icon {
   font-size: 60px;
   margin-bottom: 20px;
+  opacity: 0.5;
 }
 
 .myrooms-empty h3 {
   margin: 0 0 10px 0;
   color: #333;
+  font-size: 20px;
 }
 
 .myrooms-empty p {
   color: #666;
   margin-bottom: 20px;
-}
-/* Add these styles to your existing MyRooms.css */
-
-/* Configuration Display */
-.config-display {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  margin: 15px 0;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
+  max-width: 400px;
+  line-height: 1.5;
 }
 
-.config-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 120px;
-}
-
-.config-label {
-  font-size: 12px;
-  opacity: 0.8;
-  margin-bottom: 5px;
-}
-
-.config-value {
-  font-size: 18px;
-  font-weight: 600;
-  color: white;
-}
-/* Add these styles to your existing MyRooms.css */
-
-/* Sharing Types Display */
-.sharing-display {
-  margin: 15px 0;
-  padding: 10px 15px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  border-left: 4px solid #4CAF50;
-}
-
-.sharing-display h4 {
-  margin: 0 0 10px 0;
-  color: #fff;
-  font-size: 14px;
-  opacity: 0.9;
-}
-
-.sharing-types {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 5px;
-}
-
-.sharing-type {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(76, 175, 80, 0.2);
-  padding: 6px 12px;
-  border-radius: 6px;
-  min-width: 140px;
-  border: 1px solid rgba(76, 175, 80, 0.3);
-}
-
-.type-name {
-  font-weight: 600;
-  color: #4CAF50;
-  font-size: 14px;
-}
-
-.type-price {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-/* Configuration display enhancements */
-.config-display {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 15px;
-  margin: 15px 0;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-}
-
-.config-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.config-label {
-  font-size: 12px;
-  opacity: 0.7;
-  margin-bottom: 5px;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.config-value {
-  font-size: 18px;
-  font-weight: 600;
-  color: #4CAF50;
-}
-
-/* Room card sharing styles */
-.room-sharing {
+.go-to-upload-btn {
   background: #4CAF50;
   color: white;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 500;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-/* Loading states */
-.myrooms-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 60vh;
+.go-to-upload-btn:hover {
+  background: #45a049;
 }
 
 .rooms-loading {
+  padding: 40px;
+}
+
+.rooms-loading p {
+  color: #666;
+  margin-top: 10px;
+}
+
+.no-rooms-found {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  padding: 60px 20px;
+  text-align: center;
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-  border-left-color: #4CAF50;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 15px;
+.no-rooms-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+  opacity: 0.5;
 }
 
-.spinner.small {
-  width: 30px;
-  height: 30px;
-  border-width: 3px;
+.no-rooms-found h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 20px;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.no-rooms-found p {
+  color: #666;
+  margin-bottom: 20px;
+  max-width: 400px;
 }
 
-/* Keep all your existing CSS styles as they are */
+/* Responsive Design */
+@media (max-width: 768px) {
+  .myrooms-header {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+  
+  .pg-selector {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .pg-dropdown {
+    min-width: 100%;
+  }
+  
+  .header-actions {
+    justify-content: center;
+  }
+  
+  .config-display {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .summary-stats {
+    gap: 15px;
+  }
+  
+  .stat {
+    min-width: 100px;
+  }
+  
+  .rooms-simple-display {
+    gap: 8px;
+  }
+  
+  .room-simple-box {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .room-simple-number {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .myrooms-container {
+    padding: 15px;
+  }
+  
+  .floor-section {
+    padding: 15px;
+  }
+  
+  .config-display {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .floor-stats {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .rooms-simple-display {
+    gap: 6px;
+    justify-content: center;
+  }
+  
+  .room-simple-box {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .room-simple-number {
+    font-size: 14px;
+  }
+}

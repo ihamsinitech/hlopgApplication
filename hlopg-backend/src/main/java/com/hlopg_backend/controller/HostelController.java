@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hlopg_backend.model.Hostel;
+import com.hlopg_backend.model.Like;
+import com.hlopg_backend.repository.HostelRepository;
+import com.hlopg_backend.repository.LikeRepository;
 
 @RestController
 @RequestMapping("/api/hostel")
@@ -21,6 +25,13 @@ public class HostelController {
     
     @Autowired
     private HostelService hostelService;
+
+    @Autowired
+    private LikeRepository likeRepository;
+
+    
+     @Autowired
+    private HostelRepository hostelRepository;
     
     private final ObjectMapper objectMapper = new ObjectMapper();
     
@@ -403,47 +414,7 @@ private Long extractOwnerIdFromToken(String authHeader) {
         return error;
     }
 
-    // POST - Like/Unlike hostel
-@PostMapping("/like-hostel")
-public ResponseEntity<?> likeHostel(
-    @RequestBody Map<String, Long> request,
-    @RequestHeader("Authorization") String authHeader
-) {
-    try {
-        Long userId = extractUserIdFromToken(authHeader);
-        Long hostelId = request.get("hostel_id");
-        
-        System.out.println("🔍 Like request - User ID: " + userId + ", Hostel ID: " + hostelId);
-        
-        if (hostelId == null) {
-            return ResponseEntity.badRequest().body(errorResponse("Hostel ID is required"));
-        }
-        
-        // For now, simulate like/unlike (you need to implement actual logic)
-        // Check if hostel exists
-        Optional<Hostel> hostelOpt = hostelService.getHostelById(hostelId);
-        if (!hostelOpt.isPresent()) {
-            return ResponseEntity.status(404).body(errorResponse("Hostel not found"));
-        }
-        
-        // TODO: Implement actual like logic in service layer
-        // For now, return success with random liked status
-        boolean liked = Math.random() > 0.5; // Temporary: 50% chance of liked
-        
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        response.put("message", liked ? "Hostel liked successfully" : "Hostel unliked successfully");
-        response.put("liked", liked);
-        
-        System.out.println("✅ Like response: " + response);
-        
-        return ResponseEntity.ok(response);
-        
-    } catch (Exception e) {
-        e.printStackTrace();
-        return ResponseEntity.status(500).body(errorResponse("Failed to like hostel: " + e.getMessage()));
-    }
-}
+  
 
 // Helper method to extract user ID from token (add this method)
 private Long extractUserIdFromToken(String authHeader) {
@@ -747,4 +718,202 @@ private List<Map<String, Object>> createSampleRooms(Hostel hostel) {
     return rooms;
 }
 
+
+
+@GetMapping("/food_menu/{hostelId}")
+    public ResponseEntity<Map<String, Object>> getFoodMenu(@PathVariable Long hostelId) {
+        Map<String, Object> response = new HashMap<>();
+        
+        try {
+            Optional<Hostel> hostelOpt = hostelRepository.findById(hostelId);
+            if (!hostelOpt.isPresent()) {
+                response.put("success", false);
+                response.put("message", "Hostel not found");
+                return ResponseEntity.status(404).body(response);
+            }
+            
+            Hostel hostel = hostelOpt.get();
+            Object foodMenuData = null;
+            
+            if (hostel.getFoodMenu() != null && !hostel.getFoodMenu().isEmpty()) {
+                try {
+                    foodMenuData = objectMapper.readValue(hostel.getFoodMenu(), Object.class);
+                } catch (Exception e) {
+                    foodMenuData = createSampleMenu();
+                }
+            } else {
+                foodMenuData = createSampleMenu();
+            }
+            
+            response.put("success", true);
+            response.put("data", foodMenuData);
+            response.put("message", "Food menu fetched successfully");
+            
+            return ResponseEntity.ok(response);
+            
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Failed to fetch food menu: " + e.getMessage());
+            return ResponseEntity.status(500).body(response);
+        }
+    }
+    
+    @GetMapping("/menu/{hostelId}")
+    public ResponseEntity<Map<String, Object>> getMenu(@PathVariable Long hostelId) {
+        return getFoodMenu(hostelId);
+    }
+    
+    private Map<String, Object> createSampleMenu() {
+        Map<String, Object> menu = new HashMap<>();
+        Map<String, Object> weeklyMenu = new HashMap<>();
+        
+        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        
+        for (String day : days) {
+            Map<String, String> dayMenu = new HashMap<>();
+            dayMenu.put("breakfast", "Idli/Dosa/Poha + Tea");
+            dayMenu.put("lunch", "Rice, Dal, Vegetable, Salad");
+            dayMenu.put("dinner", "Chapati, Dal, Vegetable, Rice");
+            weeklyMenu.put(day.toLowerCase(), dayMenu);
+        }
+        
+        menu.put("weekly", weeklyMenu);
+        return menu;
+    }
+
+    @PostMapping("/like-hostel")
+public ResponseEntity<?> likeHostel(
+    @RequestBody Map<String, Long> request,
+    @RequestHeader("Authorization") String authHeader
+) {
+    try {
+        Long userId = extractUserIdFromToken(authHeader);
+        Long hostelId = request.get("hostel_id");
+        
+        System.out.println("🔍 Like request - User ID: " + userId + ", Hostel ID: " + hostelId);
+        
+        if (hostelId == null) {
+            return ResponseEntity.badRequest().body(errorResponse("Hostel ID is required"));
+        }
+        
+        // Check if hostel exists
+        Optional<Hostel> hostelOpt = hostelService.getHostelById(hostelId);
+        if (!hostelOpt.isPresent()) {
+            return ResponseEntity.status(404).body(errorResponse("Hostel not found with ID: " + hostelId));
+        }
+        
+        // Check if already liked
+        boolean alreadyLiked = likeRepository.existsByUserIdAndHostelId(userId, hostelId);
+        
+        if (alreadyLiked) {
+            // UNLIKE: Remove the like from database
+            likeRepository.deleteByUserIdAndHostelId(userId, hostelId);
+            
+            // Update hostel like count if you have that column
+            // hostelService.decrementLikeCount(hostelId);
+            
+            System.out.println("✅ User " + userId + " UNLIKED hostel " + hostelId);
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Hostel unliked successfully");
+            response.put("liked", false); // IMPORTANT: false means unliked
+            
+            return ResponseEntity.ok(response);
+            
+        } else {
+            // LIKE: Add new like to database
+            Like like = new Like(userId, hostelId);
+            likeRepository.save(like);
+            
+            // Update hostel like count if you have that column
+            // hostelService.incrementLikeCount(hostelId);
+            
+            System.out.println("✅ User " + userId + " LIKED hostel " + hostelId);
+            
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "Hostel liked successfully");
+            response.put("liked", true); // IMPORTANT: true means liked
+            
+            return ResponseEntity.ok(response);
+        }
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(500).body(errorResponse("Failed to like hostel: " + e.getMessage()));
+    }
+}
+
+// GET - Get liked hostels for user
+@GetMapping("/liked-hostels")
+public ResponseEntity<?> getLikedHostels(@RequestHeader("Authorization") String authHeader) {
+    try {
+        Long userId = extractUserIdFromToken(authHeader);
+        System.out.println("🔍 Fetching liked hostels for user ID: " + userId);
+        
+        // Get all hostel IDs that this user has liked
+        List<Long> likedHostelIds = likeRepository.findHostelIdsByUserId(userId);
+        System.out.println("✅ Found " + likedHostelIds.size() + " liked hostel IDs: " + likedHostelIds);
+        
+        if (likedHostelIds.isEmpty()) {
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("message", "No liked hostels found");
+            response.put("data", new ArrayList<>());
+            response.put("total", 0);
+            return ResponseEntity.ok(response);
+        }
+        
+        // Fetch the actual hostel details for these IDs
+        List<Hostel> likedHostels = new ArrayList<>();
+        for (Long hostelId : likedHostelIds) {
+            Optional<Hostel> hostelOpt = hostelService.getHostelById(hostelId);
+            hostelOpt.ifPresent(likedHostels::add);
+        }
+        
+        // Convert to response format
+        List<Map<String, Object>> responseList = new ArrayList<>();
+        for (Hostel hostel : likedHostels) {
+            responseList.add(convertToResponseMap(hostel));
+        }
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("message", "Liked hostels fetched successfully");
+        response.put("data", responseList);
+        response.put("total", responseList.size());
+        
+        System.out.println("✅ Returning " + responseList.size() + " liked hostels");
+        
+        return ResponseEntity.ok(response);
+        
+    } catch (Exception e) {
+        e.printStackTrace();
+        return ResponseEntity.status(400).body(errorResponse("Failed to fetch liked hostels: " + e.getMessage()));
+    }
+}
+
+// GET - Check if a hostel is liked by user (optional, useful for frontend)
+@GetMapping("/check-like/{hostelId}")
+public ResponseEntity<?> checkIfLiked(
+    @PathVariable Long hostelId,
+    @RequestHeader("Authorization") String authHeader
+) {
+    try {
+        Long userId = extractUserIdFromToken(authHeader);
+        
+        boolean isLiked = likeRepository.existsByUserIdAndHostelId(userId, hostelId);
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("liked", isLiked);
+        response.put("message", isLiked ? "Hostel is liked" : "Hostel is not liked");
+        
+        return ResponseEntity.ok(response);
+        
+    } catch (Exception e) {
+        return ResponseEntity.status(500).body(errorResponse("Failed to check like status"));
+    }
+}
 }

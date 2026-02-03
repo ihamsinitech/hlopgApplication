@@ -35,7 +35,9 @@
 }
 
 /* Loading State */
-.profile-loading {
+.profile-loading,
+.loading-notifications,
+.loading-pgs {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -159,7 +161,7 @@
 .section-header {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   margin-bottom: 40px;
   padding-bottom: 20px;
   border-bottom: 2px solid #f0f0f0;
@@ -258,41 +260,90 @@
 }
 
 /* My PG's Info */
-.pgs-info-content {
-  padding: 20px 0;
+.pgs-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.info-message {
+.pg-info-card {
   background: #f8f9ff;
+  border-radius: 12px;
   padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  border-left: 4px solid #5b5ff8;
+  border: 1px solid #e8e9ff;
+  transition: all 0.3s ease;
 }
 
-.info-message p {
-  margin: 10px 0;
-  color: #555;
-  line-height: 1.5;
+.pg-info-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(91, 95, 248, 0.1);
 }
 
-.coming-soon {
-  text-align: center;
-  padding: 40px 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  border: 2px dashed #ddd;
-}
-
-.coming-soon h3 {
-  color: #5b5ff8;
+.pg-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
-  font-size: 24px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.coming-soon p {
-  color: #777;
-  font-size: 16px;
+.pg-info-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.pg-status {
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.pg-status.active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.pg-info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pg-info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.pg-info-row .info-label {
+  min-width: 80px;
+  font-size: 13px;
+  margin: 0;
+  color: #666;
+}
+
+.pg-info-row .info-value {
+  font-size: 14px;
+  padding: 0;
+  border: none;
+  flex: 1;
+  color: #333;
+}
+
+.no-pgs-info {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  background: #f8f9fa;
+  border-radius: 10px;
+}
+
+.no-pgs-info p {
+  margin: 10px 0;
 }
 
 /* Notifications */
@@ -307,14 +358,14 @@
 
 .notification-item {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  gap: 15px;
   padding: 20px;
   background: #f9f9f9;
   border-radius: 10px;
   border-left: 4px solid #5b5ff8;
   cursor: pointer;
   transition: all 0.2s ease;
+  align-items: flex-start;
 }
 
 .notification-item.unread {
@@ -327,31 +378,79 @@
   transform: translateX(5px);
 }
 
+.notification-icon {
+  font-size: 24px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
 .notification-content {
   flex: 1;
+  min-width: 0;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+  gap: 10px;
 }
 
 .notification-title {
-  margin: 0 0 8px 0;
+  margin: 0;
   font-size: 16px;
   font-weight: 600;
   color: #333;
-}
-
-.notification-message {
-  margin: 0 0 5px 0;
-  font-size: 14px;
-  color: #666;
-  line-height: 1.4;
+  flex: 1;
 }
 
 .notification-time {
   font-size: 12px;
   color: #888;
+  white-space: nowrap;
+}
+
+.notification-message {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.notification-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+  font-size: 13px;
+}
+
+.detail-label {
+  color: #666;
+  font-weight: 500;
+}
+
+.detail-value {
+  color: #333;
+}
+
+.detail-phone {
+  color: #5b5ff8;
+}
+
+.detail-value.amount {
+  color: #2ecc71;
+  font-weight: 600;
+}
+
+.detail-value.rating {
+  color: #ff9800;
+  font-weight: 600;
 }
 
 .notification-status {
-  padding-left: 15px;
+  padding-left: 10px;
 }
 
 .unread-dot {
@@ -369,14 +468,22 @@
   font-style: italic;
 }
 
-/* Change Password Form */
+.sub-text {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #aaa;
+}
+
+/* Change Password Form - ALIGNED TO LEFT */
 .password-form {
   max-width: 500px;
-  margin: 0 auto;
+  margin: 0;
+  text-align: left;
 }
 
 .form-group {
   margin-bottom: 25px;
+  text-align: left;
 }
 
 .form-group label {
@@ -385,6 +492,7 @@
   color: #555;
   margin-bottom: 8px;
   font-weight: 500;
+  text-align: left;
 }
 
 .required {
@@ -393,9 +501,10 @@
 
 .password-input-wrapper {
   position: relative;
+  width: 100%;
 }
 
-.password-input-wrapper input {
+.password-input {
   width: 100%;
   padding: 12px 45px 12px 15px;
   border: 1px solid #ddd;
@@ -403,9 +512,10 @@
   font-size: 16px;
   transition: all 0.3s ease;
   box-sizing: border-box;
+  text-align: left;
 }
 
-.password-input-wrapper input:focus {
+.password-input:focus {
   outline: none;
   border-color: #5b5ff8;
   box-shadow: 0 0 0 3px rgba(91, 95, 248, 0.1);
@@ -432,15 +542,17 @@
   font-size: 12px;
   color: #888;
   margin-top: 5px;
+  text-align: left;
 }
 
 .form-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 15px;
   margin-top: 30px;
   padding-top: 20px;
   border-top: 1px solid #eee;
+  text-align: left;
 }
 
 .cancel-btn {
@@ -490,6 +602,7 @@
   border-radius: 8px;
   margin-bottom: 20px;
   border-left: 4px solid #ff4757;
+  text-align: left;
 }
 
 .success-message {
@@ -499,12 +612,14 @@
   border-radius: 8px;
   margin-bottom: 20px;
   border-left: 4px solid #2ecc71;
+  text-align: left;
 }
 
 /* Terms and Conditions */
 .terms-content {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0;
+  text-align: left;
 }
 
 .terms-intro {
@@ -512,8 +627,8 @@
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 30px;
-  text-align: center;
   border: 1px solid #e8e9ff;
+  text-align: left;
 }
 
 .terms-intro p {
@@ -525,6 +640,7 @@
 
 .terms-list {
   margin-bottom: 40px;
+  text-align: left;
 }
 
 .term-item {
@@ -535,6 +651,7 @@
   background: #f9f9f9;
   border-radius: 8px;
   border-left: 3px solid #5b5ff8;
+  text-align: left;
 }
 
 .term-number {
@@ -554,12 +671,14 @@
   padding: 25px;
   border-radius: 10px;
   border: 1px solid #e8e9ff;
+  text-align: left;
 }
 
 .terms-footer h4 {
   color: #5b5ff8;
   margin: 20px 0 10px 0;
   font-size: 18px;
+  text-align: left;
 }
 
 .terms-footer h4:first-child {
@@ -570,6 +689,7 @@
   color: #555;
   line-height: 1.6;
   margin-bottom: 15px;
+  text-align: left;
 }
 
 .contact-info {
@@ -577,6 +697,7 @@
   padding: 15px;
   border-radius: 8px;
   margin-top: 15px;
+  text-align: left;
 }
 
 .contact-info p {
@@ -631,6 +752,12 @@
   .header-actions {
     width: 100%;
     justify-content: space-between;
+  }
+  
+  .notification-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
   }
   
   .form-actions {

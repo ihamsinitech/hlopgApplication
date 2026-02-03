@@ -456,6 +456,21 @@ body.no-scroll {
   .hero {
     height: 40vh;
   }
+  .hero .overlay .title {
+  font-family: "DM Serif Text", serif !important;
+  font-size: 30px !important;
+  font-weight: 50 !important;
+  color: #ffffff !important;
+  margin-bottom: 10px !important;
+  margin-top: 0px;
+}
+
+.hero .overlay .subtitle {
+  font-family: "DM Serif Text", serif !important;
+  font-size: 15px !important;
+  font-weight: 100 !important;
+  color: #ffffff !important;
+}
 }
 
 /* --------- Tablet Landscape (992px) --------- */

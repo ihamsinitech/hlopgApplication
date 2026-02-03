@@ -46,6 +46,9 @@ function Home() {
   const [selectedHostelId, setSelectedHostelId] = useState(null);
   const [authType, setAuthType] = useState("login"); // "login" or "signup"
 
+  const [forceUpdateFlag, setForceUpdateFlag] = useState(false);
+const forceUpdate = () => setForceUpdateFlag(!forceUpdateFlag);
+
   /* ---------------- Fix Image URL Helper ---------------- */
   const getFullImageUrl = (imagePath) => {
     if (!imagePath) return defaultPGImg;
@@ -459,6 +462,49 @@ const updateLocalStorageLiked = (hostelId, liked) => {
     document.body.classList.remove("no-scroll");
     window.scrollTo(0, scrollPosRef.current);
   };
+
+  const handleLikeToggle = async (hostelId, isCurrentlyLiked) => {
+  try {
+    const token = localStorage.getItem("hlopgToken");
+    if (!token) {
+      navigate("/StudentLogin");
+      return;
+    }
+
+    console.log("🎯 Toggling like for hostel ID:", hostelId);
+    console.log("💖 Current liked IDs before:", likedHostelIds);
+
+    const res = await api.post(
+      "/hostel/like-hostel",
+      { hostelId },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+
+    console.log("📥 API response:", res.data);
+
+    if (res.data.success) {
+      let updatedLikedIds;
+      
+      if (res.data.liked === false) {
+        // Unlike
+        updatedLikedIds = likedHostelIds.filter(id => id !== hostelId);
+        console.log("👎 Removed from liked list:", updatedLikedIds);
+      } else {
+        // Like
+        updatedLikedIds = [...likedHostelIds, hostelId];
+        console.log("👍 Added to liked list:", updatedLikedIds);
+      }
+
+      setLikedHostelIds(updatedLikedIds);
+      localStorage.setItem("hlopgLikedHostels", JSON.stringify(updatedLikedIds));
+      
+      // Force re-render to update heart colors immediately
+      forceUpdate();
+    }
+  } catch (err) {
+    console.error("❌ Error toggling like:", err);
+  }
+};
 
   const handlePgCardClick = (pg) => {
     // Check if user is logged in

@@ -163,4 +163,6 @@ public interface HostelRepository extends JpaRepository<Hostel, Long> {
     
     // Check if hostel exists by hostelId
     boolean existsByHostelId(Long hostelId);
+
+   
 }

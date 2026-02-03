@@ -1,46 +1,50 @@
 // package com.hlopg_backend.repository;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
-// import org.springframework.data.jpa.repository.Query;
-// import org.springframework.data.repository.query.Param;
-// import org.springframework.stereotype.Repository;
-
 // import java.util.List;
 // import java.util.Optional;
+
+// import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.stereotype.Repository;
 
 // import com.hlopg_backend.model.Booking;
 
 // @Repository
-// public interface BookingRepository extends JpaRepository<Booking, String> {
-//     List<Booking> findByUserUserId(Long userId);
-//     List<Booking> findByHostelHostelId(Long hostelId);
+// public interface BookingRepository extends JpaRepository<Booking, Integer> {
     
-//     @Query("SELECT b FROM Booking b WHERE b.hostel.hostelId = :hostelId AND b.user.userId = :userId")
-//     Optional<Booking> findByHostelAndUser(@Param("hostelId") Long hostelId, @Param("userId") Long userId);
+//     // Find booking by booking ID
+//     Optional<Booking> findByBookingId(String bookingId);
     
-//     @Query("SELECT COUNT(b) FROM Booking b WHERE b.hostel.hostelId = :hostelId AND b.status = 'CONFIRMED'")
-//     Long countActiveBookingsByHostel(@Param("hostelId") Long hostelId);
+//     // Find bookings by user ID
+//     List<Booking> findByUserId(Integer userId);
+    
+//     // Find bookings by hostel ID
+//     List<Booking> findByHostelId(Integer hostelId);
+    
+//     // Find bookings by status
+//     List<Booking> findByStatus(String status);
+    
+//     // Find bookings by user ID and status
+//     List<Booking> findByUserIdAndStatus(Integer userId, String status);
+    
+//     // Find bookings by hostel ID and status
+//     List<Booking> findByHostelIdAndStatus(Integer hostelId, String status);
 // }
-package com.hlopg_backend.repository;
 
-import com.hlopg_backend.model.Booking;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+// BookingRepository.java
+package com.hlopg_backend.repository;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.hlopg_backend.model.Booking;
+
 @Repository
-public interface BookingRepository extends JpaRepository<Booking, String> {
+public interface BookingRepository extends JpaRepository<Booking, Long> {
     
-    // Keep only SIMPLE methods that don't cause errors
-    // List<Booking> findByUserId(Long userId);
-    // List<Booking> findByHostelId(Long hostelId);
-    // List<Booking> findByStatus(Booking.BookingStatus status);
+    Optional<Booking> findByBookingId(String bookingId);
     
-    // Comment out the problematic method
-    // Optional<Booking> findByHostelAndUser(Long hostelId, Long userId);
-    
-    // Add owner methods if needed
-    // List<Booking> findByOwnerId(Long ownerId);
+    List<Booking> findByUserId(Long userId);
 }
