@@ -26,9 +26,9 @@ const RoleSelection = () => {
 
   const handleSignIn = () => {
     if (selectedRole === "student") {
-      navigate("/StudentLogin");
+      navigate("/student-signup");
     } else if (selectedRole === "owner") {
-      navigate("/OwnerLogin");
+      navigate("/ownersignup");
     } else {
       alert("Please select a role before proceeding!");
     }

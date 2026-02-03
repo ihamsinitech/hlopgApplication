@@ -10,7 +10,7 @@ import LoadingVideo from "./components/LoadingVideo";
 import Home from "./pages/Home";
 import AboutUs from "./pages/AboutUs";
 import HostelPage from "./pages/HostelPage";
-import Popup from "./components/Popup";
+
 import RoleSelection from "./components/RoleSelection";
 
 import StudentLogin from "./components/StudentLogin";
@@ -115,7 +115,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/hostel/:hostelId" element={<HostelPage />} />
 
-            <Route path="/popup" element={<Popup />} />
+            
             <Route path="/RoleSelection" element={<RoleSelection />} />
 
             <Route path="/city/:cityName" element={<CityHostels />} />

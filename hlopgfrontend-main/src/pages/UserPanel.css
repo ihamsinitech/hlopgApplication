@@ -649,3 +649,155 @@ input.invalid {
   padding: 40px;
   color: #666;
 }
+
+/* ================= MOBILE VIEW ONLY ================= */
+@media (max-width: 768px) {
+
+  /* ===== Account Container ===== */
+  .account-container {
+    flex-direction: column;
+    margin-top: 60px;       /* reduce top gap */
+    padding-top: 10px;
+  }
+
+  /* ===== Sidebar ===== */
+  .sidebar {
+    width: 100%;
+    min-height: auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    margin-top: 0;
+    overflow-x: auto;
+    gap: 10px;
+    border-radius: 10px ;
+    margin-top: 20px;
+  }
+
+  /* Hide profile preview in mobile */
+  .sidebar-preview {
+    display: none;
+  }
+
+  .sidebar button {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 0;
+    width: 350px;
+  }
+
+  /* Logout button fix */
+  .sidebar .logout {
+    margin: 0;
+    width: 350px;
+  }
+ 
+
+  /* ===== Main Content ===== */
+  .main-content {
+    margin: 10px;
+    padding: 16px;
+    border-radius: 8px;
+    
+  }
+
+  .main-content h3 {
+    font-size: 16px;
+  }
+
+  /* ===== Info Section ===== */
+  .info-section {
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .profile {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .profile-image {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* ===== Form ===== */
+  .info-form {
+    gap: 0px;
+   
+    
+  }
+
+  .form-group {
+    width: 100%;
+   
+  }
+
+  .form-group input {
+    font-size: 14px;
+  }
+
+  /* ===== Aadhaar Section ===== */
+  .aadhaar-boxes {
+    flex-direction: column;
+    gap: 12px;
+    
+  }
+
+  .aadhaar-box {
+    height: 120px;
+  }
+
+  /* ===== Buttons ===== */
+  .save-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  /* ===== Password Section ===== */
+  .password-input-wrapper span {
+    font-size: 14px;
+  }
+
+  /* ===== Modal ===== */
+  .modal {
+    width: 70%;
+    padding: 20px;
+  }
+
+  /* ===== Liked PG Section ===== */
+  .liked-pg-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .liked-pg-img-container {
+    height: 180px;
+  }
+
+  .liked-pg-info h4 {
+    font-size: 0.95rem;
+  }
+
+  .liked-price {
+    font-size: 1rem;
+  }
+
+  /* ===== No liked hostels ===== */
+  .no-liked-hostels {
+    padding: 30px 15px;
+  }
+
+  /* ===== Spinner screen ===== */
+  .verifying-screen {
+    font-size: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+
+}

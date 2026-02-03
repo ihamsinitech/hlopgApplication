@@ -525,30 +525,139 @@
 }
 
 /* Responsive */
+/* =======================
+   MOBILE VIEW FIXES
+======================= */
+
+/* Small tablets & mobiles */
 @media (max-width: 768px) {
+
+  .pgrooms-container {
+    padding: 12px;
+  }
+
+  /* Header */
+  .pgrooms-header-left h1 {
+    font-size: 20px;
+  }
+
+  .pgrooms-header-left p {
+    font-size: 13px;
+  }
+
+  /* Stats */
   .pgrooms-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .pgrooms-rooms-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
-  
+
+  .stat-card {
+    padding: 12px;
+  }
+
+  .stat-info h3 {
+    font-size: 18px;
+  }
+
+  /* Actions */
   .pgrooms-actions {
     flex-direction: column;
+    padding: 12px;
+    gap: 10px;
   }
-  
+
   .action-btn {
     width: 100%;
+    padding: 12px;
+    font-size: 15px;
+  }
+
+  /* Floor header */
+  .pgrooms-floor-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .add-room-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Rooms */
+  .pgrooms-rooms-grid {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 15px;
+  }
+
+  .pgrooms-room-card {
+    padding: 12px;
+  }
+
+  .room-title h4 {
+    font-size: 15px;
+  }
+
+  .room-rent {
+    font-size: 13px;
+  }
+
+  /* Beds */
+  .beds-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .bed {
+    border-radius: 6px;
+  }
+
+  .bed-number {
+    font-size: 11px;
+  }
+
+  .bed-status {
+    font-size: 16px;
+  }
+
+  /* Footer stats */
+  .room-stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
   }
 }
 
+/* Extra small phones */
 @media (max-width: 480px) {
-  .pgrooms-stats {
-    grid-template-columns: 1fr;
+
+  .pgrooms-header-left h1 {
+    font-size: 18px;
   }
-  
+
+  .stat-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+
   .beds-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Popup */
+  .pgrooms-popup-content {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .popup-buttons {
+    flex-direction: column;
+  }
+
+  .cancel-btn,
+  .save-btn {
+    width: 100%;
   }
 }

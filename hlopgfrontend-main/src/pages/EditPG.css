@@ -279,3 +279,171 @@
 .save-btn:hover {
   background: #0056b3;
 }
+
+/* =================== TABLET / SMALL DEVICES <=768px =================== */
+@media (max-width: 768px) {
+
+  .myrooms-container {
+    padding: 20px;
+    margin-top: 30px;
+  }
+
+  /* Header */
+  .myrooms-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .add-floor-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* Floor Section */
+  .floor-title {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .add-room-btn {
+    padding: 5px 8px;
+    font-size: 13px;
+  }
+
+  /* Rooms Layout */
+  .rooms-container {
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .room-card {
+    width: calc(50% - 10px);
+  }
+
+  .room-header h4 {
+    font-size: 13px;
+  }
+
+  /* Beds Grid */
+  .room-image {
+    height: 100px;
+  }
+
+  .beds-grid {
+    gap: 6px;
+    padding: 8px;
+  }
+
+  .bed {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Popup */
+  .popup-content {
+    width: 300px;
+    padding: 20px;
+  }
+
+  .popup-content h3 {
+    font-size: 16px;
+  }
+
+  .popup-content label {
+    font-size: 13px;
+  }
+
+  .popup-content input {
+    padding: 8px;
+  }
+
+  .popup-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cancel-btn,
+  .save-btn {
+    width: 100%;
+  }
+}
+
+/* =================== SMALL MOBILE <=480px =================== */
+@media (max-width: 480px) {
+
+  .rooms-container {
+    gap: 10px;
+  }
+
+  .room-card {
+    width: 100%;
+  }
+
+  .room-image {
+    height: 90px;
+  }
+
+  .beds-grid {
+    gap: 5px;
+    padding: 6px;
+  }
+
+  .bed {
+    width: 20px;
+    height: 20px;
+  }
+
+  .myrooms-header {
+    margin-bottom: 15px;
+  }
+
+  .page-title {
+    font-size: 18px;
+  }
+
+  .add-floor-btn {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .floor-title {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .add-room-btn {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+
+  .popup-content {
+    width: 90%;
+    padding: 15px;
+  }
+
+  .popup-content h3 {
+    font-size: 15px;
+  }
+
+  .popup-content label {
+    font-size: 12px;
+  }
+
+  .popup-content input {
+    padding: 6px;
+  }
+
+  .popup-buttons {
+    gap: 8px;
+  }
+}
+

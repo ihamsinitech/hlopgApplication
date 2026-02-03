@@ -370,80 +370,153 @@
   white-space: nowrap;
 }
 
-/* Responsive */
+/* ================= MOBILE VIEW ONLY ================= */
 @media (max-width: 768px) {
-  .facilities-grid {
-    grid-template-columns: repeat(2, 1fr);
+
+  /* ===== Page ===== */
+  .city-page {
+    padding-top: 0;
   }
-  
+
+  /* ===== Hero Section ===== */
+  .city-hero {
+    height: 80vh;
+    padding-top: 90px;
+  }
+
+  .city-overlay {
+    padding: 0 14px;
+  }
+
+  .city-overlay h1 {
+    font-size: 1.9rem;
+    line-height: 1.2;
+  }
+
+  .city-overlay p {
+    font-size: 0.95rem;
+    width: 350px;
+  }
+
+  /* ===== Area + Gender Filter ===== */
+  .area-gender-filter {
+    padding: 0 16px;
+    margin-top: 14px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .area-gender-filter label {
+    font-size: 0.9rem;
+  }
+
+  .area-gender-filter select {
+    width: 50%;
+    font-size: 14px;
+    padding: 10px 36px 10px 14px;
+  }
+
+  /* ===== PG Grid ===== */
+  .pg-grid {
+    grid-template-columns: 1fr;
+    padding: 20px 16px 40px;
+    gap: 18px;
+    margin-top: 0;
+  }
+
+  /* ===== PG Card ===== */
+  .city-pg-card {
+    border-radius: 16px;
+  }
+
+  .city-pg-card:hover {
+    transform: none !important; /* disable lift on mobile */
+  }
+
+  /* ===== Image ===== */
+  .city-pg-image {
+    padding: 12px;
+  }
+
+  .city-pg-image .image-container {
+    height: 170px;
+  }
+
+  /* Wishlist icon */
+  .city-wishlist {
+    top: 18px;
+    right: 18px;
+    font-size: 20px;
+    padding: 5px;
+  }
+
+  /* ===== Info Section ===== */
+  .city-pg-info {
+    padding: 10px 12px !important;
+  }
+
+  .pg-name {
+    font-size: 16px;
+  }
+
+  .pg-location {
+    font-size: 13px;
+    margin-top: -6px !important;
+  }
+
+  /* ===== Type Badge ===== */
+  .pg-type-badges {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  /* ===== Sharing + Price ===== */
   .sharing-price-section {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 8px;
+    padding: 6px 0;
   }
-  
-  .price-tag {
-    align-items: flex-start;
-  }
-  
+
   .sharing-text {
-    max-width: 200px;
+    max-width: 100%;
+    font-size: 13px;
   }
-}
 
-@media (max-width: 480px) {
+  .price {
+    font-size: 18px;
+  }
+
+  /* ===== Facilities ===== */
   .facilities-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .facility-item {
-    justify-content: flex-start;
-  }
-}
-
-/* Loading state */
-.loading {
-  text-align: center;
-  padding: 100px 20px;
-  font-size: 18px;
-  color: #666;
-}
-/* ================= Responsive ================= */
-@media (max-width: 768px) {
-  .city-overlay h1 {
-    font-size: 2rem;
-  }
-  .city-overlay p {
-    font-size: 1rem;
-  }
-  .pg-grid {
-    padding: 40px 5%;
-  }
-  .area-gender-filter {
-    padding: 0 5%;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .area-gender-filter select {
-    width: 100%;
-  }
-}
-
-@media (max-width: 1200px) {
-  .pg-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 900px) {
-  .pg-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 0px;
+    display: flex;
+  }
+
+  .facility-item {
+    font-size: 11px;
+    padding: 6px;
   }
 }
 
-@media (max-width: 600px) {
-  .pg-grid {
+/* ===== EXTRA SMALL DEVICES ===== */
+@media (max-width: 480px) {
+
+  .city-hero {
+    height: 34vh;
+  }
+
+  .city-overlay h1 {
+    font-size: 1.7rem;
+  }
+
+  .city-overlay p {
+    font-size: 0.9rem;
+  }
+
+  .facilities-grid {
     grid-template-columns: 1fr;
   }
 }

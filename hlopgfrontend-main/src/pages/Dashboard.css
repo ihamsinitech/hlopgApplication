@@ -453,64 +453,170 @@
   }
 }
 
+/* =================== TABLET / SMALL DEVICES <=768px =================== */
 @media (max-width: 768px) {
-  .pg-cards-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-  
-  .chart-stats {
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  .chart-stat .stat-value {
-    font-size: 24px;
-  }
-  
-  .chart-wrapper {
-    height: 250px;
-  }
-  
-  .complaints-cards-grid,
-  .reviews-cards-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .welcome-text {
-    font-size: 20px;
-  }
-  
-  .section-title {
-    font-size: 16px;
-  }
-  
-  .chart-bar-container {
-    margin: 0 2px;
-  }
-  
-  .chart-bar {
-    width: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .pg-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
   .dashboard-container {
     padding: 15px;
   }
-  
-  .chart-container {
-    padding: 15px;
+
+  /* Welcome text & section titles */
+  .welcome-text {
+    font-size: 20px;
+    margin-bottom: 20px;
   }
-  
-  .y-axis {
-    width: 40px;
+
+  .section-title {
+    font-size: 16px;
+    padding-bottom: 6px;
   }
-  
+
+  /* PG Cards */
+  .pg-cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+
+  .pg-card-name {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  .pg-card-image {
+    height: 110px;
+  }
+
+  /* Chart Stats */
+  .chart-stats {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .chart-stat .stat-value {
+    font-size: 22px;
+  }
+
+  /* Chart Wrapper */
+  .chart-wrapper {
+    height: 220px;
+    gap: 2px;
+  }
+
+  .chart-bar-container {
+    margin: 0 2px;
+  }
+
   .chart-bar {
-    width: 15px;
+    width: 18px;
+  }
+
+  /* Complaints & Reviews Cards */
+  .complaints-cards-grid,
+  .reviews-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .complaint-card,
+  .review-card {
+    padding: 12px;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .complaint-message,
+  .review-text {
+    font-size: 13px;
+  }
+
+  .complaint-icon,
+  .review-avatar {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* =================== SMALL MOBILE <=480px =================== */
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 8px;
+  }
+
+  /* Welcome text & section titles */
+  .welcome-text {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .section-title {
+    font-size: 14px;
+    padding-bottom: 4px;
+  }
+
+  /* PG Cards */
+  .pg-cards-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .pg-card-image {
+    height: 90px;
+  }
+
+  .pg-card-name {
+    font-size: 12.5px;
+    padding: 6px 8px;
+  }
+
+  /* Chart Container */
+  .chart-container {
+    padding: 12px;
+  }
+
+  .chart-wrapper {
+    height: 180px;
+  }
+
+  .chart-bar {
+    width: 12px;
+  }
+
+  .y-axis {
+    width: 30px;
+  }
+
+  .chart-stat .stat-value {
+    font-size: 18px;
+  }
+
+  /* Complaints & Reviews Cards */
+  .complaint-card,
+  .review-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .complaint-icon,
+  .review-avatar {
+    width: 30px;
+    height: 30px;
+  }
+
+  .complaint-message,
+  .review-text {
+    font-size: 11.5px;
+  }
+
+  /* Chart legend adjustment */
+  .chart-legend {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .legend-item {
+    font-size: 12px;
   }
 }

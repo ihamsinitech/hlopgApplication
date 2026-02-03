@@ -153,3 +153,66 @@
     color: #6b7280;
   }
 }
+
+/* ================= MOBILE VIEW ================= */
+@media (max-width: 600px) {
+
+  .pg-members-list-container {
+    padding: 12px;
+  }
+
+  .pg-members-list-container h3 {
+    font-size: 18px;
+  }
+
+  /* Hide table layout */
+  .pg-members-list-container table,
+  .pg-members-list-container thead,
+  .pg-members-list-container tbody,
+  .pg-members-list-container th,
+  .pg-members-list-container tr {
+    display: block;
+    width: 100%;
+  }
+
+  .pg-members-list-container thead {
+    display: none;
+  }
+
+  /* Card style row */
+  .pg-members-list-container tr {
+    background: #ffffff;
+    margin-bottom: 14px;
+    padding: 12px;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Each field */
+  .pg-members-list-container td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 14px;
+    border: none;
+  }
+
+  .pg-members-list-container td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #6b7280;
+    font-size: 13px;
+  }
+
+  /* Status highlight */
+  .pg-members-list-container td:last-child {
+    font-weight: 700;
+  }
+
+  /* Filters */
+  .pg-members-list-container select {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

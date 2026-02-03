@@ -579,100 +579,249 @@
   }
 }
 
+/* ===== MOBILE VIEW ===== */
+
+/* Tablet / Small Devices <= 768px */
 @media (max-width: 768px) {
   .hostel-page {
     padding: 15px;
-    padding-top: 70px;
+    padding-top: 80px;
   }
-  
+
+  /* Main layout stacks vertically */
   .hostel-main {
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
   }
-  
+
+  .hostel-images,
+  .hostel-details {
+    min-width: 100%;
+    padding: 10px;
+  }
+
   .main-img {
     height: 300px;
   }
-  
+
   .arrow-left,
   .arrow-right {
-    width: 40px;
-    height: 40px;
-    font-size: 1.1rem;
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
   }
-  
-  .hostel-details {
-    padding: 15px;
-  }
-  
+
+  /* Hostel details */
   .hostel-details h2 {
     font-size: 1.6rem;
+    margin-top: 0px;
+    margin-bottom: 0px;
   }
-  
+
   .stats {
-    padding: 15px;
-  }
-  
-  .stat-btn {
-    padding: 12px 16px;
-    font-size: 0.95rem;
-  }
-  
-  .food-menu {
-    padding: 20px 15px;
-    
-  }
-  
-  
-  .food-menu th,
-  .food-menu td {
-    padding: 12px 10px;
-    font-size: 0.9rem;
-  }
-  
-  .book-now-btn {
-    padding: 14px 40px;
-    font-size: 1.1rem;
-    width: 300px;
-    
+    padding: 1px;
+    gap: 1px;
   }
 
-}
-
-@media (max-width: 480px) {
-  .main-img {
-    height: 250px;
-  }
-  
-  .thumbnail-container img {
-    width: 80px;
-    height: 60px;
-  }
-  
-  .hostel-details h2 {
-    font-size: 1.4rem;
-  }
-  
+  /* Furnished / PG rules icons */
   .furnished-icons span,
   .pg-rules span {
-    padding: 8px 12px;
+    padding: 8px 10px;
     font-size: 0.9rem;
+    
+    
   }
-  
-  .review-card {
-    padding: 15px;
+  .furnished-icons,
+.pg-rules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+
+  /* Reviews */
+  .reviews-section {
+    padding: 20px;
+    margin: 25px 0;
+    margin-bottom: 0px !important;
   }
-  
+
+  .reviews-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .rating-number {
+    font-size: 2.5rem;
+  }
+
+  .reviewer-avatar {
+    width: 45px;
+    height: 45px;
+  }
+
+  .review-content {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .reviewer-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .book-now-btn {
+    width: 100%;
+    padding: 14px 0;
+    font-size: 1rem;
+  }
+
+  /* Food Menu */
   .food-menu {
-    padding: 15px 10px;
+    padding: 15px;
+    margin-top: 0px !important;
+    padding-top: 0px;
+    margin-bottom: 0px;
   }
-  
+
   .food-menu th,
   .food-menu td {
     padding: 10px 8px;
     font-size: 0.85rem;
   }
+
+  
 }
+
+/* ================= MOBILE POPUP FIX ================= */
+@media (max-width: 768px) {
+
+  .popup-overlay {
+    padding: 10px !important;
+    align-items: flex-start !important;
+  }
+
+  .booking-popup {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: calc(100vh - 20px) !important;
+    margin-top: 10px !important;
+    border-radius: 10px !important;
+  }
+
+  .popup-content {
+    width: 100% !important;
+    padding: 12px !important;
+    overflow-y: auto !important;
+    max-height: calc(100vh - 120px) !important;
+  }
+
+  .popup-header {
+    padding: 14px !important;
+  }
+
+  .popup-header h3 {
+    font-size: 16px !important;
+  }
+
+  .close-popup {
+    font-size: 24px !important;
+  }
+
+  .submit-btn,
+  .cancel-btn {
+    width: 100% !important;
+  }
+}
+
+/* ================= SMALL MOBILE (<=480px) ================= */
+@media (max-width: 480px) {
+
+  .booking-popup {
+    max-height: calc(100vh - 10px) !important;
+    margin-top: 5px !important;
+  }
+
+  .popup-content {
+    max-height: calc(100vh - 100px) !important;
+  }
+}
+
+
+/* Small Mobile Devices <= 480px */
+@media (max-width: 480px) {
+  .main-img {
+    height: 250px;
+  }
+
+  .thumbnail-container img {
+    width: 70px;
+    height: 50px;
+  }
+
+  .hostel-details h2 {
+    font-size: 1.4rem;
+  }
+
+  .furnished-icons span,
+  .pg-rules span {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+  .furnished-icons,
+  .pg-rules {
+    flex-direction: column; /* stack items vertically */
+    gap: 8px; /* reduce gap for mobile */
+  }
+
+  .reviews-section {
+    padding: 15px;
+  }
+
+  .review-item {
+    padding: 15px;
+  }
+
+  .view-all-reviews {
+    width: 100%;
+    text-align: center;
+  }
+
+  .book-now-btn {
+    font-size: 0.95rem;
+    padding: 12px 0;
+  }
+
+  .food-menu {
+    padding: 10px;
+  }
+
+  .food-menu th,
+  .food-menu td {
+    padding: 8px 6px;
+    font-size: 0.8rem;
+  }
+
+  .popup-header h3 {
+    font-size: 18px !important;
+  }
+
+  .popup-content {
+    padding: 10px !important;
+  }
+
+  .phone-input {
+    width: 100% !important;
+    font-size: 13px !important;
+    padding: 6px 10px !important;
+  }
+
+  .sharing-options {
+    flex-direction: column !important;
+  }
+}
+
 
 /* ===== FIXED POPUP SCROLLING CSS ===== */
 /* Add/Replace these styles */
@@ -913,22 +1062,36 @@
 .cancel-btn {
   background: #5e1dd8 !important;
   color: white !important;
+   cursor: pointer !important;
+   width: 200px !important;
   }
 
 .cancel-btn:hover {
-  background: #e0e0e0 !important;
+  background: #1b0620 !important;
 }
 
-.submits-btn {
+.cancel-btn,
+.submit-btn,
+.close-popup {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+.submit-btn {
   background: #5b5ff8 !important;
   color: white !important;
-  width: 600px;
+  width:300px !important;
   height: 40px;
   border-radius: 10px;
+  cursor: pointer !important;
+  margin-top: 10px !important;
+  
 
 }
 
-.submits-btn:hover:not(:disabled) {
+.submit-btn:hover:not(:disabled) {
   background: #4a4fd8 !important;
   transform: translateY(-2px) !important;
   box-shadow: 0 4px 12px rgba(91, 95, 248, 0.3) !important;

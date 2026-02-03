@@ -6,7 +6,7 @@
 
 .login img {
   /* width: 50%; */
-  height: 500px;
+  height: 620px;
   width: auto;
   border-radius: 20px;
   object-fit: cover;
@@ -19,7 +19,8 @@
   max-width: 450px;
   margin: 50px auto;
   padding: 30px;
-  background: #f9fdff;
+  background: #f4f4f5;
+  border: 1px solid rgba(0, 0, 0, 0.144);
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -258,3 +259,119 @@
   margin-bottom: 10px;
   font-weight: 500;
 }
+
+/* ================= MOBILE & TABLET VIEW (768px and below) ================= */
+@media (max-width: 768px) {
+
+  /* ===== LOGIN LAYOUT ===== */
+  .login {
+    flex-direction: column !important;
+    padding: 20px;
+    margin-top: 70px;
+  }
+
+  .login img {
+    margin-left: 0;        /* 🔥 important */
+    margin-top: 0;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    display: block;
+  }
+
+  /* ===== SIGNUP CONTAINER ===== */
+  .student-signup-container {
+    max-width: 85%;
+    margin: 20px auto;
+    padding: 20px 15px;
+    border-radius: 14px;
+    margin-top: 10px;
+  }
+
+  .student-signup-container h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  /* ===== FORM INPUTS ===== */
+  .student-signup-form input,
+  .student-signup-form select {
+    font-size: 15px;
+    padding: 11px 14px;
+  }
+
+  .student-signup-form {
+    gap: 14px;
+  }
+
+  /* Tick icon */
+  .valid-tick {
+    right: 10px;
+    font-size: 16px;
+  }
+
+  /* Errors */
+  .error-message {
+    font-size: 13px;
+  }
+
+  .validation-error {
+    font-size: 12px;
+  }
+
+  /* ===== BUTTON ===== */
+  .student-signup-form button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  /* ===== LOGIN LINK ===== */
+  .student-login-link {
+    font-size: 13px;
+    margin-top: 16px;
+  }
+
+  /* ===== OTP MODAL ===== */
+  .otp-modal-content {
+    padding: 22px;
+    width: 95%;
+    border-radius: 12px;
+  }
+
+  .otp-modal-content h3 {
+    font-size: 18px;
+  }
+
+  .otp-modal-content p {
+    font-size: 13px;
+  }
+
+  /* OTP Inputs */
+  .otp-inputs {
+    gap: 8px;
+  }
+
+  .otp-inputs input {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  /* OTP Buttons */
+  .otp-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .otp-actions button {
+    width: 100%;
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  /* Resend */
+  .resend-section button {
+    font-size: 13px;
+  }
+}
+

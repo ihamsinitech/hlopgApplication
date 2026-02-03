@@ -141,3 +141,69 @@
     padding: 12px;
   }
 }
+
+/* ================= MOBILE VIEW ================= */
+@media (max-width: 600px) {
+
+  .pg-members-page {
+    padding: 14px;
+    padding-top: 80px;
+  }
+
+  .pg-members-page h3 {
+    font-size: 17px;
+  }
+
+  .pg-members-page select {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  /* Convert table to cards */
+  .pg-members-page table,
+  .pg-members-page thead,
+  .pg-members-page tbody,
+  .pg-members-page th,
+  .pg-members-page tr {
+    display: block;
+    width: 100%;
+  }
+
+  .pg-members-page thead {
+    display: none;
+  }
+
+  /* Card */
+  .pg-members-page tr {
+    background: #ffffff;
+    margin-bottom: 14px;
+    padding: 12px;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Each row item */
+  .pg-members-page td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 14px;
+    border-bottom: none;
+  }
+
+  /* Label */
+  .pg-members-page td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  /* Status pill */
+  .pg-members-page td:last-child {
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+}

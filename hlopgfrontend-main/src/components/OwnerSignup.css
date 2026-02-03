@@ -4,6 +4,7 @@
   margin: 50px auto;
   padding: 30px;
   background: #f9fdff;
+  border: 1px solid rgba(0, 0, 0, 0.103);
   border-radius: 16px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -277,4 +278,157 @@
 
 .test-otp-btn:hover {
   background-color: #45a049;
+}
+
+/* =========================
+   MOBILE VIEW (≤ 768px)
+========================= */
+@media (max-width: 768px) {
+
+  /* ===== SIGNUP CONTAINER ===== */
+  .owner-signup-container {
+    max-width: 83%;
+    margin: 30px 15px;
+    padding: 20px 20px;
+    border-radius: 14px;
+    margin-top: 130px !important;
+  }
+
+  .owner-signup-container h2 {
+    font-size: 21px;
+    margin-bottom: 20px;
+  }
+
+  /* ===== FORM ===== */
+  .owner-signup-form {
+    gap: 14px;
+  }
+
+  .owner-signup-form input,
+  .owner-signup-form select {
+    font-size: 15px;
+    padding: 11px 14px;
+  }
+
+  .valid-tick {
+    font-size: 16px;
+    right: 10px;
+  }
+
+  .error-message {
+    font-size: 13px;
+  }
+
+  .validation-error {
+    font-size: 12px;
+  }
+
+  /* ===== BUTTON ===== */
+  .owner-signup-form button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  /* ===== LOGIN LINK ===== */
+  .owner-login-link {
+    font-size: 13px;
+    margin-top: 16px;
+  }
+
+  /* ===== OTP MODAL ===== */
+  .otp-modal-content {
+    padding: 22px;
+    width: 95%;
+    border-radius: 12px;
+  }
+
+  .otp-modal-content h3 {
+    font-size: 18px;
+  }
+
+  .otp-modal-content p {
+    font-size: 13px;
+  }
+
+  /* OTP Inputs */
+  .otp-inputs {
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .otp-inputs input {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  /* OTP Buttons */
+  .otp-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .otp-actions button {
+    width: 100%;
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  /* Resend */
+  .resend-section button {
+    font-size: 13px;
+  }
+
+  /* ===== TEST OTP INFO ===== */
+  .test-otp-info {
+    padding: 10px;
+  }
+
+  .test-otp-info p {
+    font-size: 13px;
+  }
+
+  .test-otp-btn {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE (≤ 480px)
+========================= */
+@media (max-width: 480px) {
+
+  .owner-signup-container {
+    margin: 20px 12px;
+    padding: 20px 16px;
+  }
+
+  .owner-signup-container h2 {
+    font-size: 20px;
+  }
+
+  .owner-signup-form input,
+  .owner-signup-form select {
+    font-size: 14px;
+  }
+
+  .owner-signup-form button {
+    font-size: 14px;
+  }
+
+  .otp-inputs input {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .otp-modal-content h3 {
+    font-size: 17px;
+  }
+
+  .test-otp-info p,
+  .resend-section button {
+    font-size: 12px;
+  }
 }

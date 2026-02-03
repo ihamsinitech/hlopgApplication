@@ -109,7 +109,10 @@
   }
 
   .role-card {
-    max-width: 100%;
+    flex: 1 1 100%;
+    max-width: 60%;
+    padding: 22px 18px;
+    border-radius: 15px;
   }
 
   .create-btn {

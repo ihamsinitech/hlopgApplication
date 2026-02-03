@@ -405,3 +405,166 @@
   background: none;
   cursor: pointer;
 }
+
+/* ================= MOBILE VIEW ONLY ================= */
+@media (max-width: 768px) {
+
+  /* ===== Main Container ===== */
+  .uploadpg-container {
+    padding: 16px;
+  }
+
+  .page-title {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  /* ===== Form ===== */
+  .pg-form {
+    padding: 16px;
+    border-radius: 12px;
+    gap: 12px;
+  }
+
+  .pg-form label {
+    font-size: 14px;
+  }
+
+  .pg-form input,
+  .pg-form select {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  /* ===== PG Type Buttons ===== */
+  .pg-type {
+    gap: 8px;
+  }
+
+  .pg-type button {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  /* ===== Location Inputs ===== */
+  .pg-location {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* ===== Images ===== */
+  .pg-images img,
+  .upload-btn {
+    width: 90px;
+    height: 70px;
+  }
+
+  /* ===== Food Menu Table ===== */
+  .food-menu-table {
+    overflow-x: auto;
+  }
+
+  .food-menu-table table {
+    min-width: 600px; /* enable horizontal scroll */
+  }
+
+  .food-menu-table th,
+  .food-menu-table td {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  /* ===== Furnished Icons ===== */
+  .furnished-icons {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    justify-items: center;
+  }
+
+  .furnish-icon {
+    width: 70px;
+    height: 70px;
+    font-size: 18px;
+  }
+
+  /* ===== Rules ===== */
+  .rules-section {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    justify-items: center;
+  }
+
+  .rule-item {
+    width: 70px;
+    height: 70px;
+    font-size: 18px;
+  }
+
+  /* ===== Floor & Rooms ===== */
+  .floor-rooms-section {
+    padding: 12px;
+  }
+
+  .floor-input-group .input-field {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .floor-input-group .input-field label {
+    width: 100%;
+    font-size: 13px;
+  }
+
+  .floor-input-group .input-field input {
+    width: 100%;
+  }
+
+  /* ===== Advance Amount ===== */
+  .advance-amount-section {
+    padding: 12px;
+  }
+
+  .advance-amount-section .advance-input-group {
+    width: 100%;
+  }
+
+  /* ===== Sharing Options ===== */
+  .sharing-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .sharing-dropdown,
+  .price-input {
+    width: 100%;
+  }
+
+  .remove-sharing {
+    align-self: flex-end;
+  }
+
+  /* ===== Submit Button ===== */
+  .submit-btn {
+    width: 100%;
+    align-self: center;
+    margin-top: 20px;
+    font-size: 15px;
+  }
+}
+
+/* ===== SMALL PHONES ===== */
+@media (max-width: 480px) {
+
+  .furnished-icons,
+  .rules-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pg-images img,
+  .upload-btn {
+    width: 80px;
+    height: 65px;
+  }
+}

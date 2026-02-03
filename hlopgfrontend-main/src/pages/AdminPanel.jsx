@@ -276,10 +276,10 @@ const AdminPanel = () => {
   };
 
   return (
-    <div className="admin-container">
+    <div className="admin-panel-container">
       {/* Sidebar - Keep your existing sidebar */}
-      <aside className="sidebar">
-        <div className="sidebar-top">
+      <aside className="admin-panel-sidebar">
+        <div className="admin-panel-sidebars-top">
           <div
             className="logo-container"
             style={{ cursor: "pointer" }}
@@ -290,15 +290,15 @@ const AdminPanel = () => {
             </h2>
           </div>
 
-          <ul className="sidebar-menu">
+          <ul className="admin-panel-sidebar-menu">
             {sidebarOptions.map((item) => (
               <li
                 key={item.name}
-                className={`menu-item ${selected === item.name ? "active" : ""}`}
+                className={`admin-panel-menu-item ${selected === item.name ? "active" : ""}`}
                 onClick={() => setSelected(item.name)}
               >
-                <span className="icon">{item.icon}</span>
-                <span className="label">{item.name}</span>
+                <span className="admin-panel-icon">{item.icon}</span>
+                <span className="admin-panel-label">{item.name}</span>
               </li>
             ))}
           </ul>
@@ -309,23 +309,23 @@ const AdminPanel = () => {
       </aside>
 
       {/* Main Content with Header */}
-      <main className="main-content">
+      <main className="admin-panel-main-content">
         {/* Header with Profile Icon */}
-        <header className="admin-header">
-          <div className="header-left">
+        <header className="admin-panel-admin-header">
+          <div className="admin-panel-header-left">
             <h1>{getGreeting()}, {user?.name || "Owner"}!</h1>
             <p>Welcome to your HloPG Dashboard</p>
           </div>
 
           {/* Profile Section */}
           {/* Profile Section - AdminPanel.jsx */}
-<div className="profile-section" ref={dropdownRef}>
+<div className="admin-panel-profile-section" ref={dropdownRef}>
   <button 
-    className="profile-icon-btn" 
+    className="admin-panel-profile-icon-btn" 
     onClick={() => navigate("/owner-profile")}  
     aria-label="Profile menu"
   >
-    <div className="profile-icons">
+    <div className="admin-panel-profile-icons">
       {getUserInitials()}
     </div>
   </button>
@@ -335,7 +335,7 @@ const AdminPanel = () => {
 
 
         {/* Main Content Body */}
-        <div className="content-body">
+        <div className="admin-panel-content-body">
           {renderComponent()}
         </div>
       </main>

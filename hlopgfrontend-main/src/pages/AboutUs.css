@@ -7,6 +7,7 @@
   margin: 60px auto;
   max-width: 1150px;
   gap: 0;
+  margin-top: 100px;
 }
 
 .aboutus-image img {
@@ -348,42 +349,120 @@
   }
 }
 
+/* ===================== MOBILE VIEW ONLY ===================== */
 @media (max-width: 768px) {
+
+  /* ===== WRAPPER ===== */
+  .aboutus-wrapper {
+    overflow-x: hidden;
+  }
+
+  /* ================= ABOUT US SECTION ================= */
   .aboutus-container {
     flex-direction: column;
+    margin: 30px 12px;
+    margin-top: 90px;
   }
 
   .aboutus-image img {
     width: 100%;
-    border-radius: 20px 20px 0 0;
+    height: 230px;
+    border-radius: 16px 16px 0 0;
+    object-fit: cover;
   }
 
   .aboutus-content {
-    border-radius: 0 0 20px 20px;
+    padding: 28px 18px;
+    border-radius: 0 0 16px 16px;
     text-align: center;
+  }
+
+  .aboutus-heading {
+    font-size: 24px;
+    line-height: 1.4;
+  }
+
+  .aboutus-subtitle {
+    font-size: 15px;
+    line-height: 1.6;
   }
 
   .aboutus-icons {
     justify-content: center;
+    gap: 18px;
+    margin-top: 25px;
+  }
+
+  .aboutus-icon-item {
+    min-width: 90px;
+  }
+
+  .aboutus-icons img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .aboutus-icon-item p {
+    font-size: 13px;
+  }
+
+  /* ================= WHY US SECTION ================= */
+  .whyus-section {
+    padding: 50px 15px;
+  }
+
+  .whyus-heading {
+    font-size: 26px;
+  }
+
+  .whyus-subtitle {
+    font-size: 16px;
+    margin-bottom: 30px;
   }
 
   .whyus-cards {
     grid-template-columns: 1fr;
+    gap: 22px;
   }
 
-  .mission-vision-cards {
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
+  .whyus-card {
+    padding: 22px 18px;
+    text-align: left;
+  }
+
+  .whyus-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+  }
+
+  .whyus-card h3 {
+    font-size: 18px;
+  }
+
+  .whyus-card p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ================= MISSION & VISION ================= */
+  .mission-vision-section {
+    padding: 50px 25px;
+    width: 300px;
   }
 
   .mission-vision-heading {
     font-size: 26px;
+    margin-bottom: 30px;
+  }
+
+  .mission-vision-cards {
+    flex-direction: column;
+    gap: 22px;
   }
 
   .mv-card {
     width: 100%;
-    padding: 20px 15px;
+    padding: 22px 18px;
   }
 
   .mv-img {
@@ -392,18 +471,35 @@
   }
 
   .mv-text {
-    font-size: 0.9rem;
+    font-size: 14px;
+    line-height: 1.6;
   }
 
   .mv-title {
-    font-size: 1rem;
+    font-size: 18px;
+  }
+
+  /* ================= FAQ SECTION ================= */
+  .faq-section {
+    padding: 50px 15px;
   }
 
   .faq-heading {
     font-size: 26px;
+    margin-bottom: 30px;
+  }
+
+  .faq-item {
+    padding: 16px 18px;
   }
 
   .faq-question h3 {
-    font-size: 16px;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .faq-answer {
+    font-size: 14px;
+    line-height: 1.6;
   }
 }

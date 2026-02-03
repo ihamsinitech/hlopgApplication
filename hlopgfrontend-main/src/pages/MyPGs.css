@@ -593,14 +593,16 @@
 }
 
 /* Responsive */
+/* Tablet & Large Mobile */
 @media (max-width: 768px) {
   .pgs-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 12px; /* Even smaller gap on mobile */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
   }
   
   .pg-card {
     height: 220px;
+    max-width: 100%;
   }
   
   .card-image {
@@ -611,75 +613,9 @@
     font-size: 15px;
   }
   
-  .details-modal {
-    padding: 10px;
-  }
-  
-  .modal-container {
-    max-height: 90vh;
-    width: 95%;
-    max-width: 95%;
-  }
-  
-  .main-image {
-    height: 180px;
-  }
-  
-  .room-stats {
-    grid-template-columns: 1fr;
-  }
-  
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .modal-footer {
-    flex-direction: column;
-  }
-  
-  .modal-footer button {
-    width: 100%;
-    min-width: auto;
-  }
-  
-  .nav-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .pgs-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
-    gap: 10px;
-  }
-  
-  .pg-card {
-    height: 200px;
-  }
-  
-  .card-image {
-    height: 120px;
-  }
-  
-  .card-content {
-    padding: 8px;
-  }
-  
-  .card-content h4 {
-    font-size: 14px;
-  }
-  
-  .modal-container {
-    width: 100%;
-    height: 100vh;
-    max-height: 100vh;
-    border-radius: 0;
-  }
-  
-  .details-modal {
-    padding: 0;
+  .status-badge {
+    font-size: 9px;
+    padding: 2px 6px;
   }
 }
 

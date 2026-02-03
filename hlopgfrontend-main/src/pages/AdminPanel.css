@@ -41,7 +41,7 @@
 }
 
 /* ================== BASE CONTAINER ================== */
-.admin-container {
+.admin-panel-container {
   display: flex;
   height: 100vh;
   background: #f4f4fb;
@@ -51,7 +51,7 @@
 }
 
 /* ================== SIDEBAR ================== */
-.sidebar {
+.admin-panel-sidebar {
   width: 240px;
   background: #ffffff;
   border-right: 1px solid #e5e7eb;
@@ -67,12 +67,12 @@
   padding: 25px 20px;
 }
 
-.sidebar-top {
+.admin-panel-sidebar-top {
   flex: 1;
 }
  
 /* Sidebar Menu */
-.sidebar-menu {
+.admin-panel-sidebar-menu {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -81,7 +81,7 @@
   gap: 6px;
 }
 
-.menu-item {
+.admin-panel-menu-item {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -93,23 +93,23 @@
   color: #555;
 }
 
-.menu-item:hover {
+.admin-panel-menu-item:hover {
   background: #f3f4ff;
   color: #5b5ff8;
 }
 
-.menu-item.active {
+.admin-panel-menu-item.active {
   background: #e8e9ff;
   color: #5b5ff8;
   font-weight: 600;
   box-shadow: inset 0 0 0 1.5px #5b5ff8;
 }
 
-.icon {
+.admin-panel-icon {
   font-size: 16px;
 }
 
-.label {
+.admin-panel-label {
   flex: 1;
 }
 
@@ -147,7 +147,7 @@
 }
 
 /* ================== MAIN CONTENT ================== */
-.main-content {
+.admin-panel-main-content {
   flex: 1;
   margin-left: 240px; /* space for sidebar */
   padding: 25px 35px;
@@ -159,7 +159,7 @@
 }
 
 /* ================== TOPBAR ================== */
-.topbar {
+/* .topbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -174,7 +174,7 @@
   font-size: 18px;
   font-weight: 600;
   color: #333;
-}
+} */
 
 .admin-avatar {
   width: 38px;
@@ -185,7 +185,7 @@
 }
 
 /* ================== CONTENT BODY ================== */
-.content-body {
+.admin-panel-content-body {
   flex: 1;
   background: #fff;
   border-radius: 15px;
@@ -194,16 +194,16 @@
   overflow-y: auto;
 }
 
-.content-body::-webkit-scrollbar {
+.admin-panel-content-body::-webkit-scrollbar {
   width: 8px;
 }
 
-.content-body::-webkit-scrollbar-thumb {
+.admin-panel-content-body::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 10px;
 }
 
-.content-body::-webkit-scrollbar-thumb:hover {
+.admin-panel-content-body::-webkit-scrollbar-thumb:hover {
   background: #aaa;
 }
 
@@ -244,7 +244,7 @@
 /* AdminPanel.css - Update these styles */
 
 /* Header with profile - FIXED */
-.admin-header {
+.admin-panel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -256,34 +256,53 @@
   z-index: 100;
   height: 70px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  margin-bottom: 25px;
+  border-radius: 12px;
+  width: 100%;
 }
 
-.header-left {
+/* Fix for header-left */
+.admin-panel-header-left {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  padding-left: 20px;
 }
 
-.header-left h1 {
+/* Fix for profile section to push to right */
+.admin-panel-profile-section {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* Remove old conflicting topbar styles */
+.topbar {
+  display: none;
+}
+
+.admin-panel-header-left h1 {
   margin: 0;
   font-size: 24px;
   color: #333;
   font-weight: 600;
 }
 
-.header-left p {
+.admin-panel-header-left p {
   margin: 5px 0 0 0;
   color: #666;
   font-size: 14px;
 }
 
 /* Profile section - Position to right corner */
-.profile-section {
+/* .admin-panel-profile-section {
   position: relative;
   margin-right: 10px;
-}
+  
+} */
 
 /* Profile icon button - Right corner */
-.profile-icon-btn {
+.admin-panel-profile-icon-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -296,16 +315,16 @@
   outline: none;
 }
 
-.profile-icon-btn:hover {
+.admin-panel-profile-icon-btn:hover {
   background-color: #f5f5f5;
   transform: scale(1.05);
 }
 
-.profile-icon-btn:active {
+.admin-panel-profile-icon-btn:active {
   transform: scale(0.95);
 }
 
-.profile-icons {
+.admin-panel-profile-icons {
   width: 40px;
   height: 40px;
   border-radius: 50%;

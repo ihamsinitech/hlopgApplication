@@ -69,17 +69,31 @@ const CommonLogin = () => {
             align-items: center;
             justify-content: center;
             padding: 20px;
+            
           }
 
           .login-card {
             background: #fff;
             width: 100%;
             max-width: 400px;
-            padding: 32px;
+            padding: 30px;
             border-radius: 16px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.12);
             animation: fadeIn 0.4s ease;
+            border:1px solid rgba(0, 0, 0, 0.16);
+            
           }
+           .login-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.login-logo img {
+  width: 90px;
+  height: auto;
+  object-fit: contain;
+}
 
           .login-card h1 {
             text-align: center;
@@ -89,11 +103,11 @@ const CommonLogin = () => {
           }
 
           .login-card input {
-            width: 100%;
+            width: 95%;
             padding: 13px 15px;
             margin-bottom: 14px;
             border-radius: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #0e0c0c23;
             font-size: 14px;
           }
 
@@ -156,11 +170,46 @@ const CommonLogin = () => {
               transform: translateY(0);
             }
           }
+            @media (max-width: 768px) {
+
+  .login-card {
+    padding: 26px 22px;
+    border-radius: 14px;
+    margin-top: 40px;
+  }
+
+  .login-logo img {
+    width: 75px;
+  }
+
+  .login-card h1 {
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+
+  .login-card input {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .login-card button {
+    padding: 12px;
+    font-size: 14.5px;
+  }
+}
+
         `}
+        
       </style>
+
+      
+
 
       <div className="login-wrapper">
         <div className="login-card">
+          <div className="login-logo">
+  <img src="/logo.png" alt="App Logo" />
+</div>
           <h1>Login</h1>
 
           <form onSubmit={handleSubmit}>

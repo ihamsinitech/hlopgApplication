@@ -466,3 +466,42 @@
     font-size: 14px;
   }
 }
+
+@media (max-width: 480px) {
+  .myrooms-header {
+    padding: 15px;
+  }
+
+  .summary-card h3 {
+    font-size: 20px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .floor-title {
+    font-size: 18px;
+  }
+
+  .pg-selector h2 {
+    font-size: 16px;
+  }
+
+  .room-simple-box {
+    width: 50px;
+    height: 50px;
+  }
+
+  .room-simple-number {
+    font-size: 13px;
+  }
+
+  .config-label {
+    font-size: 11px;
+  }
+
+  .config-value {
+    font-size: 16px;
+  }
+}

@@ -378,6 +378,8 @@ const Header = () => {
     if (role === "OWNER") navigate("/owner-dashboard");
     else if (role === "USER") navigate("/user-dashboard");
     else navigate("/login");
+
+    setMenuOpen(false);
   };
 
   // Close mobile menu when clicking on overlay

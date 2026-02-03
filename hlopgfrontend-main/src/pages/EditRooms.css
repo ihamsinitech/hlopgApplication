@@ -36,3 +36,62 @@ padding-top: 40px;
   border-radius: 6px;
   cursor: pointer;
 }
+/* =================== TABLET / SMALL DEVICES <=768px =================== */
+@media (max-width: 768px) {
+  .edit-rooms-page {
+    margin: 15px;
+    padding-top: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .floor-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .btn-add-floor,
+  .btn-add-room,
+  .save-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .room-card {
+    padding: 10px;
+  }
+
+  .room-card label {
+    font-size: 14px;
+  }
+}
+
+/* =================== SMALL MOBILE <=480px =================== */
+@media (max-width: 480px) {
+  .edit-rooms-page {
+    margin: 10px;
+    padding-top: 20px;
+  }
+
+  .floor-section {
+    gap: 6px;
+  }
+
+  .btn-add-floor,
+  .btn-add-room,
+  .save-btn {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .room-card {
+    padding: 8px;
+  }
+
+  .room-card label {
+    font-size: 13px;
+  }
+}
+

@@ -293,6 +293,7 @@
   .social-icons a:hover {
     background: #7b61ff !important;
     border-color: #7b61ff;
+    color: white !important;
     transform: translateY(-2px);
   }
 

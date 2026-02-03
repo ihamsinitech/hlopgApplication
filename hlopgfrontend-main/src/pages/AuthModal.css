@@ -135,3 +135,143 @@
   color: #fff;
   cursor: pointer;
 }
+/* =================== MOBILE / TABLET =================== */
+@media (max-width: 768px) {
+  .auth-card {
+    width: 80% !important;        /* almost full width */
+    padding: 5px !important;
+  }
+
+  .auth-logo img {
+    width: 50px;       /* slightly smaller logo */
+    margin-bottom: 10px;
+  }
+
+  .auth-form h2 {
+    font-size: 18px;   /* smaller heading */
+    margin-bottom: 12px;
+  }
+
+  .auth-form input[type="text"],
+  .auth-form input[type="email"],
+  .auth-form input[type="password"] {
+    padding: 10px 8px;
+    font-size: 13px;
+    width: 300px;
+  }
+
+  .auth-password-wrapper .auth-eye {
+    top: 15px !important;
+    right: 8px;
+    font-size: 14px;
+  }
+
+  .auth-checkbox {
+    font-size: 12px;
+    margin: 6px 0;
+  }
+
+  .auth-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .auth-switch {
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  .auth-or {
+    font-size: 12px;
+    margin: 10px 0;
+  }
+
+  .auth-google-btn {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .auth-otp-section input {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    margin: 4px;
+  }
+
+  .auth-otp-section button {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* =================== SMALLER MOBILE / PHONES =================== */
+@media (max-width: 480px) {
+  .auth-card {
+    width: 95%;        /* almost full width */
+    padding: 15px;
+  }
+
+  .auth-logo img {
+    width: 45px;
+  }
+
+  .auth-form h2 {
+    font-size: 16px;
+  }
+
+  .auth-form input[type="text"],
+  .auth-form input[type="email"],
+  .auth-form input[type="password"] {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+
+  .auth-password-wrapper .auth-eye {
+    top: 8px;
+    right: 6px;
+    font-size: 12px;
+  }
+
+  .auth-checkbox {
+    font-size: 11px;
+    margin: 4px 0;
+  }
+
+  .auth-btn {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .auth-switch {
+    font-size: 11px;
+    margin-top: 6px;
+  }
+
+  .auth-or {
+    font-size: 11px;
+    margin: 8px 0;
+  }
+
+  .auth-google-btn {
+    padding: 6px;
+    font-size: 13px;
+  }
+
+  .auth-otp-section input {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    margin: 3px;
+  }
+
+  .auth-otp-section button {
+    padding: 8px;
+    font-size: 13px;
+  }
+
+  .auth-close-btn {
+    top: 5px;
+    right: 5px;
+    font-size: 18px;
+  }
+}
