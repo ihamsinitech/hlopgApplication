@@ -36,99 +36,244 @@ const UploadPG = ({ user }) => {
 
   // location data
   const locationData = {
-  Telangana: {
-    Hyderabad: [
-      "Ameerpet",
-      "Dilshuknagar",
-      "Gachibowli",
-      "Gandimaisamma",
-      "Kondapur",
-      "KPHB",
-      "LB Nagar",
-      "Medchal",
-      "Moosapet",
-      "Madhapur",
-      "Patancheruvu",
-      "Uppal"
-    ],
-    Warangal: ["Hanamkonda", "Kazipet"]
+      "Andhra Pradesh": {
+    "Visakhapatnam": ["Gajuwaka", "MVP Colony", "Dwarakanagar", "Siripuram"],
+    "Vijayawada": ["Benz Circle", "Poranki", "Gunadala", "Patamata"],
+    "Guntur": ["Arundelpet", "Lakshmipuram", "Brodipet"]
+  },
+  "Telangana": {
+    "Hyderabad": ["Ameerpet", "Gachibowli", "Madhapur", "KPHB", "Hitech City", "Banjara Hills"],
+    "Warangal": ["Hanamkonda", "Kazipet", "Subedari"],
+    "Karimnagar": ["Kaman", "Vavilala Street"]
+  },
+  "Karnataka": {
+    "Bangalore": ["Koramangala", "HSR Layout", "Indiranagar", "Whitefield", "Marathahalli"],
+    "Mysore": ["Vijayanagar", "Gokulam", "Kuvempunagar"],
+    "Mangalore": ["Kadri", "Bejai", "Urwa"]
+  },
+  "Maharashtra": {
+    "Mumbai": ["Andheri", "Bandra", "Powai", "Thane", "Dadar"],
+    "Pune": ["Hinjewadi", "Kharadi", "Viman Nagar", "Koregaon Park", "Baner"],
+    "Nagpur": ["Sadar", "Dharampeth", "Manewada"]
+  },
+  "Tamil Nadu": {
+    "Chennai": ["Adyar", "Anna Nagar", "T Nagar", "Velachery", "OMR"],
+    "Coimbatore": ["RS Puram", "Saibaba Colony", "Gandhipuram"],
+    "Madurai": ["KK Nagar", "Villapuram", "Simmakkal"]
+  },
+  "Delhi": {
+    "New Delhi": ["Connaught Place", "Karol Bagh", "Chanakyapuri"],
+    "South Delhi": ["Saket", "Hauz Khas", "Greater Kailash"],
+    "West Delhi": ["Rajouri Garden", "Janakpuri", "Dwarka"]
+  },
+  "Uttar Pradesh": {
+    "Lucknow": ["Gomti Nagar", "Hazratganj", "Indira Nagar"],
+    "Noida": ["Sector 62", "Sector 128", "Sector 18"],
+    "Ghaziabad": ["Vaishali", "Kaushambi", "Indirapuram"]
+  },
+  "Gujarat": {
+    "Ahmedabad": ["SG Highway", "Prahlad Nagar", "Maninagar"],
+    "Surat": ["Athwa Lines", "Varachha", "Adajan"],
+    "Vadodara": ["Alkapuri", "Fatehganj", "Gotri"]
+  },
+  "Arunachal Pradesh": {
+    "Itanagar": ["Naharlagun", "Ganga Market"],
+    "Tawang": ["Old Market", "Army Area"]
   },
 
-  Karnataka: {
-    Bangalore: [
-      "Bannerghatta",
-      "Basavanagudi",
-      "Devanahalli",
-      "Electronic City",
-      "Hebbal",
-      "Hoskote",
-      "HSR Layout",
-      "Indiranagar",
-      "Jayanagar",
-      "Kengeri",
-      "Koramangala",
-      "Madiwala",
-      "Marathahalli",
-      "Sarjapur Road",
-      "Ulsoor",
-      "Whitefield"
-    ],
-    Mysore: ["Gokulam", "Vijayanagar"]
+  "Assam": {
+    "Guwahati": ["Dispur", "Paltan Bazar"],
+    "Silchar": ["Malugram", "Tarapur"]
   },
 
-  AndhraPradesh: {
-    Vijayawada: ["Benz Circle", "Gunadala", "Poranki"],
-    Vizag: ["Gajuwaka", "MVP Colony"]
+  "Bihar": {
+    "Patna": ["Boring Road", "Kankarbagh"],
+    "Gaya": ["Civil Lines", "Tekari Road"]
   },
 
-  Maharashtra: {
-    Mumbai: [
-      "Airoli",
-      "Andheri",
-      "Borivali",
-      "Chembur",
-      "Goregaon",
-      "Jogeshwari",
-      "Juhu",
-      "Kandivali",
-      "Kurla",
-      "Malabar Hill",
-      "Marine Drive",
-      "Mira Road",
-      "Powai",
-      "Thane",
-      "Vikhroli",
-      "Virar"
-    ],
-    Pune: [
-      "Aundh",
-      "Baner",
-      "Hadapsar",
-      "Hinjewadi",
-      "Kalyani Nagar",
-      "Kharadi",
-      "Koregaon Park",
-      "Kothrud"
-    ]
+  "Chhattisgarh": {
+    "Raipur": ["Pandri", "Telibandha"],
+    "Bilaspur": ["Vyapar Vihar", "Sarkanda"]
   },
 
-  TamilNadu: {
-    Chennai: [
-      "Ambattur",
-      "Anna Nagar",
-      "Gopalapuram",
-      "Kotturpuram",
-      "Medavakkam",
-      "Navalur",
-      "Perungudi",
-      "Porur",
-      "Semmancheri",
-      "Tambaram",
-      "Thoraipakkam",
-      "Velachery"
-    ]
+  "Goa": {
+    "Panaji": ["Miramar", "Altinho"],
+    "Margao": ["Fatorda", "Borda"]
+  },
+
+ "Haryana": {
+    "Gurgaon": ["DLF Phase 1", "Sohna Road"],
+    "Faridabad": ["Sector 15", "Ballabhgarh"]
+  },
+
+  "Himachal Pradesh": {
+    "Shimla": ["Mall Road", "Kufri"],
+    "Mandi": ["Seri Bazar", "Nerchowk"]
+  },
+
+  "Jharkhand": {
+    "Ranchi": ["Lalpur", "Doranda"],
+    "Jamshedpur": ["Bistupur", "Sakchi"]
+  },
+
+ 
+  "Kerala": {
+    "Kochi": ["Kakkanad", "Edappally"],
+    "Trivandrum": ["Kowdiar", "Pattom"]
+  },
+
+  "Madhya Pradesh": {
+    "Bhopal": ["MP Nagar", "Arera Colony"],
+    "Indore": ["Vijay Nagar", "Palasia"]
+  },
+"Manipur": {
+    "Imphal": ["Thangal Bazar", "Lamphel"],
+    "Bishnupur": ["Moirang", "Nambol"]
+  },
+
+  "Meghalaya": {
+    "Shillong": ["Police Bazar", "Laitumkhrah"],
+    "Tura": ["Rongkhon", "Araimile"]
+  },
+
+  "Mizoram": {
+    "Aizawl": ["Zarkawt", "Chanmari"],
+    "Lunglei": ["Bazar Area", "Venglai"]
+  },
+
+  "Nagaland": {
+    "Kohima": ["Main Town", "High School Area"],
+    "Dimapur": ["City Tower", "Chumukedima"]
+  },
+
+  "Odisha": {
+    "Bhubaneswar": ["Patia", "Jaydev Vihar"],
+    "Cuttack": ["Badambadi", "College Square"]
+  },
+
+  "Punjab": {
+    "Ludhiana": ["Civil Lines", "Model Town"],
+    "Amritsar": ["Ranjit Avenue", "Golden Temple Area"]
+  },
+
+  "Rajasthan": {
+    "Jaipur": ["Malviya Nagar", "Vaishali Nagar"],
+    "Udaipur": ["Hiran Magri", "Fatehpura"]
+  },
+
+  "Sikkim": {
+    "Gangtok": ["MG Marg", "Deorali"],
+    "Namchi": ["Upper Bazar", "Singithang"]
+  },
+  "Tripura": {
+    "Agartala": ["Banamalipur", "Jogendranagar"],
+    "Udaipur": ["Radhakishorepur", "Matabari"]
+  },
+  "Uttarakhand": {
+    "Dehradun": ["Rajpur Road", "ISBT"],
+    "Haridwar": ["Jwalapur", "Kankhal"]
+  },
+
+  "West Bengal": {
+    "Kolkata": ["Salt Lake", "Ballygunge"],
+    "Siliguri": ["Sevoke Road", "Pradhan Nagar"]
   }
+
 };
+
+//   Telangana: {
+//     Hyderabad: [
+//       "Ameerpet",
+//       "Dilshuknagar",
+//       "Gachibowli",
+//       "Gandimaisamma",
+//       "Kondapur",
+//       "KPHB",
+//       "LB Nagar",
+//       "Medchal",
+//       "Moosapet",
+//       "Madhapur",
+//       "Patancheruvu",
+//       "Uppal"
+//     ],
+//     Warangal: ["Hanamkonda", "Kazipet"]
+//   },
+
+//   Karnataka: {
+//     Bangalore: [
+//       "Bannerghatta",
+//       "Basavanagudi",
+//       "Devanahalli",
+//       "Electronic City",
+//       "Hebbal",
+//       "Hoskote",
+//       "HSR Layout",
+//       "Indiranagar",
+//       "Jayanagar",
+//       "Kengeri",
+//       "Koramangala",
+//       "Madiwala",
+//       "Marathahalli",
+//       "Sarjapur Road",
+//       "Ulsoor",
+//       "Whitefield"
+//     ],
+//     Mysore: ["Gokulam", "Vijayanagar"]
+//   },
+
+//   AndhraPradesh: {
+//     Vijayawada: ["Benz Circle", "Gunadala", "Poranki"],
+//     Vizag: ["Gajuwaka", "MVP Colony"]
+//   },
+
+//   Maharashtra: {
+//     Mumbai: [
+//       "Airoli",
+//       "Andheri",
+//       "Borivali",
+//       "Chembur",
+//       "Goregaon",
+//       "Jogeshwari",
+//       "Juhu",
+//       "Kandivali",
+//       "Kurla",
+//       "Malabar Hill",
+//       "Marine Drive",
+//       "Mira Road",
+//       "Powai",
+//       "Thane",
+//       "Vikhroli",
+//       "Virar"
+//     ],
+//     Pune: [
+//       "Aundh",
+//       "Baner",
+//       "Hadapsar",
+//       "Hinjewadi",
+//       "Kalyani Nagar",
+//       "Kharadi",
+//       "Koregaon Park",
+//       "Kothrud"
+//     ]
+//   },
+
+//   TamilNadu: {
+//     Chennai: [
+//       "Ambattur",
+//       "Anna Nagar",
+//       "Gopalapuram",
+//       "Kotturpuram",
+//       "Medavakkam",
+//       "Navalur",
+//       "Perungudi",
+//       "Porur",
+//       "Semmancheri",
+//       "Tambaram",
+//       "Thoraipakkam",
+//       "Velachery"
+//     ]
+//   }
+// };
 
   // room-setup popup states
   const [showRoomSetup, setShowRoomSetup] = useState(false);
