@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./AuthModal.css";
 import api from "../api";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 
 
 const AuthModal = ({ isOpen, onClose, onSuccess }) => {
@@ -149,7 +151,7 @@ const AuthModal = ({ isOpen, onClose, onSuccess }) => {
                 required
               />
               <span className="auth-eye" onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
+                {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
               </span>
             </div>
             <div className="auth-password-wrapper">
@@ -161,7 +163,7 @@ const AuthModal = ({ isOpen, onClose, onSuccess }) => {
                 required
               />
               <span className="auth-eye" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
-                {showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
+                {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
               </span>
             </div>
 
@@ -229,7 +231,7 @@ const AuthModal = ({ isOpen, onClose, onSuccess }) => {
                 required
               />
               <span className="auth-eye" onClick={() => setShowPassword(!showPassword)}>
-                {showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
+                {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
               </span>
             </div>
 

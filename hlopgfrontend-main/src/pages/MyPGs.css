@@ -592,40 +592,6 @@
   transform: translateY(-1px);
 }
 
-/* Responsive */
-/* Tablet & Large Mobile */
-@media (max-width: 768px) {
-  .pgs-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px;
-  }
-  
-  .pg-card {
-    height: 220px;
-    max-width: 100%;
-  }
-  
-  .card-image {
-    height: 140px;
-  }
-  
-  .card-content h4 {
-    font-size: 15px;
-  }
-  
-  .status-badge {
-    font-size: 9px;
-    padding: 2px 6px;
-  }
-}
-
-@media (max-width: 360px) {
-  .pgs-grid {
-    grid-template-columns: 1fr; /* Single column on very small screens */
-    gap: 10px;
-  }
-}
-
 /* PGs Container */
 .pgs-container {
   display: flex;
@@ -819,37 +785,188 @@
    etc.
 */
 
-/* Responsive for form */
 @media (max-width: 768px) {
-  .edit-form-section {
-    padding: 15px;
+
+  .my-pgs-page {
+    padding: 12px;
   }
-  
+
+  .pgs-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .pg-card {
+    min-width: 100% !important;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .card-image {
+    height: 160px;
+  }
+
+  .card-content {
+    padding: 10px;
+  }
+
+  .card-content h4 {
+    font-size: 15px;
+  }
+    .edit-form-section {
+    padding: 12px;
+    margin-top: 15px;
+  }
+
   .pg-form {
-    padding: 15px;
+    padding: 12px;
+    gap: 12px;
   }
-  
-  .form-header {
+
+  .pg-form label {
+    font-size: 13px;
+  }
+
+  .pg-form input,
+  .pg-form select {
+    width: 90%;
+    font-size: 14px;
+    padding: 10px;
+  }
+  .pg-location {
     flex-direction: column;
-    align-items: flex-start;
     gap: 10px;
   }
-  
-  .close-form-btn {
+
+  .pg-location select,
+  .pg-location input {
+    width: 90%;
+    
+  }
+   .pg-images {
+    display: flex;
+    flex-wrap: nowrap;          /* ⛔ stop breaking into next line */
+    align-items: center;        /* ✅ vertical alignment */
+    gap: 8px;
+    overflow-x: auto;           /* 👈 scroll if images exceed width */
+    padding-bottom: 4px;
+  }
+
+  .pg-images img,
+  .pg-images .upload-btn {
+    width: 80px;
+    height: 70px;
+    flex: 0 0 auto;             /* ✅ prevent shrinking */
+  }
+
+  .pg-images .upload-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    line-height: 1;             /* 🔑 fixes height mismatch */
+  }
+    .sharing-row {
+    flex-direction: column;
+    gap: 8px;
+
+  }
+
+  .sharing-dropdown,
+  .price-input {
+    width: 90% !important;
+  }
+
+  .remove-sharing {
     align-self: flex-end;
+  }
+
+    .floor-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;              /* give breathing space */
+    width: 100%;
+  }
+
+  .floor-input-group .input-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .floor-input-group .input-field label {
+    font-size: 12px;
+    margin-bottom: 4px;     /* separate label & input */
+    line-height: 1.2;
+  }
+
+  .floor-input-group .input-field input,
+  .floor-input-group .input-field select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+
+  .advance-amount-section {
+    margin-top: 0px;
+  }
+
+  .advance-input-group input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .food-menu-table {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .food-menu-table table {
+    min-width: 650px;
+  }
+
+  .food-menu-table input {
+    font-size: 13px;
+    padding: 6px;
+  }
+  .furnished-icons {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .furnish-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 16px;
+  }
+
+  .furnish-icon span {
+    font-size: 10px;
+    text-align: center;
+  }
+  .rules-section {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .rule-item {
+    width: 60px;
+    height: 60px;
+    font-size: 16px;
+  }
+
+  .rule-item span {
+    font-size: 10px;
+    text-align: center;
+  }
+    .submit-btn {
+    width: 100% !important;
+    padding: 12px;
+    font-size: 15px;
   }
 }
 
-@media (max-width: 480px) {
-  .edit-form-section {
-    padding: 12px;
-  }
-  
-  .pg-form {
-    padding: 12px;
-  }
-  
-  .form-header h3 {
-    font-size: 18px;
-  }
-}
+
+

@@ -1234,9 +1234,9 @@ const BookingPopup = ({ onClose, onSubmit }) => {
   <button className="book-now-btn" onClick={handleBookNow}>
     Book Now 
   </button>
-  <p className="booking-note-small">
+  {/* <p className="booking-note-small">
     No payment required. Owner will contact you directly.
-  </p>
+  </p> */}
 </div>
 
       {/* Booking Popup */}

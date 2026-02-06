@@ -9,11 +9,12 @@ src/pages/ProfilePage.css
 
 /* Back Button */
 .back-button-container {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: 300px;
+  margin-top: 10px;
 }
 
-.back-btn {
+.back-btns {
   background: #5b5ff8;
   color: white;
   border: none;
@@ -768,6 +769,10 @@ src/pages/ProfilePage.css
   .submit-btn {
     width: 100%;
   }
+  .back-btns {
+    width: 40%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -775,8 +780,8 @@ src/pages/ProfilePage.css
     padding: 15px;
   }
   
-  .back-btn {
-    width: 100%;
+  .back-btns {
+    width: 40%;
     justify-content: center;
   }
   

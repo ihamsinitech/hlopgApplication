@@ -20,7 +20,9 @@ import {
   FaPhone,
   FaMapMarkerAlt,
   FaVenusMars,
-  FaEdit
+  FaEdit,
+  FaLocationArrow,
+  FaClosedCaptioning
 } from "react-icons/fa";
 
 import Dashboard from "./Dashboard";
@@ -42,6 +44,7 @@ const sidebarOptions = [
   { name: "My PG’s", icon: <FaList /> },
   { name: "My Rooms", icon: <FaUser /> },
   { name: "Reviews", icon: <FaHeart /> },
+   { name: "Logout", icon: <FaSignOutAlt /> },
 ];
 
 
@@ -60,7 +63,7 @@ const PGSelection = ({ pgs = [], onSelect, loading }) => {
   if (pgs.length === 0) {
     return (
       <div className="pg-selection-empty">
-        <div className="empty-icon">🏠</div>
+        <div className="empty-icon"><FaHome/></div>
         <h3>No PGs Found</h3>
         <p>You need to upload a PG first to manage rooms.</p>
         <button 
@@ -97,7 +100,7 @@ return (
             </div>
             <div className="pg-selection-info">
               <h3>{pg.hostel_name}</h3>
-              <p>📍 {pg.area}, {pg.city}</p>
+              <p><FaLocationArrow/> {pg.area}, {pg.city}</p>
               <div className="pg-selection-stats">
                 <span>Rooms: {pg.total_rooms || 0}</span>
                 <span>Occupied: {pg.occupied_rooms || 0}</span>
@@ -121,6 +124,8 @@ const AdminPanel = () => {
   const [user, setUser] = useState(null);
   const dropdownRef = useRef(null);
   const [selectedPG, setSelectedPG] = useState(null);
+ 
+   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -279,7 +284,7 @@ const AdminPanel = () => {
     <div className="admin-panel-container">
       {/* Sidebar - Keep your existing sidebar */}
       <aside className="admin-panel-sidebar">
-        <div className="admin-panel-sidebars-top">
+        <div className="admin-panel-sidebar-top">
           <div
             className="logo-container"
             style={{ cursor: "pointer" }}
@@ -295,8 +300,15 @@ const AdminPanel = () => {
               <li
                 key={item.name}
                 className={`admin-panel-menu-item ${selected === item.name ? "active" : ""}`}
-                onClick={() => setSelected(item.name)}
-              >
+                onClick={() => {
+        if (item.name === "Logout") {
+          setShowLogoutConfirm(true); // Show logout confirmation
+        } else {
+          setSelected(item.name);
+        }
+      }}
+    >
+              
                 <span className="admin-panel-icon">{item.icon}</span>
                 <span className="admin-panel-label">{item.name}</span>
               </li>
@@ -311,7 +323,7 @@ const AdminPanel = () => {
       {/* Main Content with Header */}
       <main className="admin-panel-main-content">
         {/* Header with Profile Icon */}
-        <header className="admin-panel-admin-header">
+        <header className="admin-panel-header">
           <div className="admin-panel-header-left">
             <h1>{getGreeting()}, {user?.name || "Owner"}!</h1>
             <p>Welcome to your HloPG Dashboard</p>
@@ -339,8 +351,47 @@ const AdminPanel = () => {
           {renderComponent()}
         </div>
       </main>
+       {/* Add this logout confirmation modal */}
+      {showLogoutConfirm && (
+  <div className="logout-confirmation-modal">
+    <div className="logout-confirmation-content">
+      {/* Close Button - Top Right */}
+      <button 
+        className="modal-close-btn"
+        onClick={() => setShowLogoutConfirm(false)}
+        aria-label="Close"
+      >
+        ×
+      </button>
+      
+      <h3>Are you sure you want to logout?</h3>
+      {/* <p>You will be redirected to the homepage.</p> */}
+      <div className="logout-confirmation-buttons">
+        <button 
+          className="logout-confirm-cancel"
+          onClick={() => setShowLogoutConfirm(false)}
+        >
+          Cancel
+        </button>
+        <button 
+          className="logout-confirm-logout"
+          onClick={() => {
+            localStorage.removeItem("hlopgToken");
+            localStorage.removeItem("hlopgUser");
+            localStorage.removeItem("hlopgOwner");
+            setShowLogoutConfirm(false);
+            navigate("/");
+          }}
+        >
+          Yes, Logout
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };
+    
 
 export default AdminPanel;

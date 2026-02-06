@@ -8,6 +8,8 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   text-align: center;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 100px;
+  border: 1px solid rgba(0, 0, 0, 0.219);
 }
 
 .role-container h2 {
@@ -104,8 +106,9 @@
 /* Tablets (700px and below) */
 @media (max-width: 768px) {
   .role-container {
-    margin-top: 40px;
-    padding: 25px;
+    margin-top: 90px !important;
+    padding: 2px !important;
+    width: 350px;
   }
 
   .role-card {

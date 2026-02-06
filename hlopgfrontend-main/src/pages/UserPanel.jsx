@@ -53,72 +53,7 @@ const [loadingLiked, setLoadingLiked] = useState(false);
 
   const navigate = useNavigate();
 
-  // ✅ fetch user details
- 
-// useEffect(() => {
-//   const verifyAndFetchUser = async () => {
-//     const token = localStorage.getItem("hlopgToken");
-//     const owner = localStorage.getItem("hlopgOwner");
-//     const user = localStorage.getItem("hlopgUser");
-    
-//     console.log("🔍 UserPanel - Checking localStorage");
-    
-//     // If no token, go to role selection
-//     if (!token) {
-//       navigate("/RoleSelection");
-//       return;
-//     }
-    
-//     // If owner data exists, redirect to owner dashboard
-//     if (owner) {
-//       navigate("/owner-dashboard");
-//       return;
-//     }
-    
-//     // Use user data from localStorage (already saved during login)
-//     if (user && user !== "undefined" && user !== "null") {
-//   try {
-//     const userData = JSON.parse(user);
-//     console.log("✅ Using cached user:", userData.name);
-//     setUser(userData);
-//     setDraftUser(userData);
-//   } catch (e) {
-//     console.error("Error parsing user:", e);
-//   }
-// } else if (!user || user === "undefined" || user === "null") {
-//   console.log("⚠️ No valid user data in localStorage");
   
-//   // Create a fallback user
-//   const fallbackUser = {
-//     name: "User",
-//     email: "user@example.com",
-//     phone: "",
-//     gender: "",
-//     userType: "USER"
-//   };
-//   setUser(fallbackUser);
-//   setDraftUser(fallbackUser);
-// }
-    
-//     // Optional: Try to fetch fresh data (but don't fail if it doesn't work)
-//     try {
-//       const userRes = await api.get("/auth/userid", {
-//         headers: { Authorization: `Bearer ${token}` },
-//       });
-      
-//       if (userRes.status === 200) {
-//         console.log("✅ Fetched fresh user data");
-//         setUser(userRes.data);
-//         setDraftUser(userRes.data);
-//       }
-//     } catch (fetchErr) {
-//       console.log("⚠️ Couldn't fetch fresh data - using cached");
-//       // Don't do anything - just use the cached data
-//     }
-//   };
-
-//   verifyAndFetchUser();
-// }, [navigate]);
 
 useEffect(() => {
   const verifyAndFetchUser = async () => {
@@ -174,9 +109,14 @@ useEffect(() => {
         });
         
         if (userRes.status === 200) {
-          console.log("✅ Fetched user from backend:", userRes.data);
-          setUser(userRes.data);
-          setDraftUser(userRes.data);
+          console.log("✅ Fetched user from backend:");
+          const userData = userRes.data.data || userRes.data;
+
+           if (userData.profileImage && !userData.profileImage.startsWith('http')) {
+    userData.profileImage = `http://localhost:8080${userData.profileImage}`;
+  }
+          setUser(userData);
+          setDraftUser(userData);
           // Save to localStorage for next time
           localStorage.setItem("hlopgUser", JSON.stringify(userRes.data));
         }
@@ -228,118 +168,6 @@ useEffect(() => {
     fetchBookedPGs();
   }, []);
 
-
-  
-// Fetch liked hostels
-// useEffect(() => {
-//   const fetchLikedHostels = async () => {
-//     const token = localStorage.getItem("hlopgToken");
-//     if (!token) {
-//       console.log("No token, cannot fetch liked hostels");
-//       // Try localStorage fallback
-//       const localLiked = localStorage.getItem('hlopgLikedHostels');
-//       if (localLiked) {
-//         try {
-//           const likedIds = JSON.parse(localLiked);
-//           console.log("Using localStorage liked IDs:", likedIds);
-//           // You could fetch hostel details for these IDs here
-//         } catch (e) {
-//           console.error("Error parsing localStorage liked:", e);
-//         }
-//       }
-//       return;
-//     }
-
-//     try {
-//       setLoadingLiked(true);
-//       console.log("Fetching liked hostels from API...");
-
-//       const res = await api.get("/hostel/liked-hostels", {
-//         headers: { Authorization: `Bearer ${token}` }
-//       });
-      
-//       console.log("Liked hostels API response:", res.data);
-      
-//       if (res.data.success && Array.isArray(res.data.data)) {
-//         // Process images for liked hostels
-//         const processedLiked = res.data.data.map(hostel => {
-//           let displayImage = hostel.img || 
-//                            (hostel.images && hostel.images[0]) || 
-//                            "https://cdn-icons-png.flaticon.com/512/4140/4140048.png";
-          
-//           // Fix image URL if needed
-//           if (displayImage && !displayImage.startsWith('http')) {
-//             if (displayImage.startsWith('/uploads')) {
-//               displayImage = `http://localhost:8080${displayImage}`;
-//             } else {
-//               displayImage = `http://localhost:8080/uploads/${displayImage}`;
-//             }
-//           }
-          
-//           return {
-//             ...hostel,
-//             displayImage,
-//             id: hostel.hostel_id || hostel.id
-//           };
-//         });
-        
-//         setLikedHostels(processedLiked);
-//         console.log("✅ Processed liked hostels:", processedLiked);
-//       } else {
-//         console.log("⚠️ No liked hostels data from API, checking localStorage...");
-//         // Fallback to localStorage
-//         const localLiked = localStorage.getItem('hlopgLikedHostels');
-//         if (localLiked) {
-//           try {
-//             const likedIds = JSON.parse(localLiked);
-//             console.log("Using localStorage liked IDs:", likedIds);
-//             // Fetch hostel details for these IDs
-//             // You could call /hostel/gethostels and filter by these IDs
-//           } catch (e) {
-//             console.error("Error parsing localStorage liked:", e);
-//           }
-//         }
-//         setLikedHostels([]);
-//       }
-//     } catch (err) {
-//       console.error("❌ Error fetching liked hostels:", err);
-//       console.error("Error details:", err.response?.data);
-      
-//       // Fallback to localStorage
-//       const localLiked = localStorage.getItem('hlopgLikedHostels');
-//       if (localLiked) {
-//         try {
-//           const likedIds = JSON.parse(localLiked);
-//           console.log("Fallback: Using localStorage liked IDs:", likedIds);
-//           // Create dummy hostels from IDs
-//           const dummyHostels = likedIds.map(id => ({
-//             id: id,
-//             hostel_name: `Hostel ${id}`,
-//             displayImage: "https://cdn-icons-png.flaticon.com/512/4140/4140048.png",
-//             area: "Unknown",
-//             city: "Unknown",
-//             pg_type: "Hostel",
-//             rating: "N/A",
-//             price: "N/A"
-//           }));
-//           setLikedHostels(dummyHostels);
-//         } catch (e) {
-//           console.error("Error parsing localStorage liked:", e);
-//           setLikedHostels([]);
-//         }
-//       } else {
-//         setLikedHostels([]);
-//       }
-//     } finally {
-//       setLoadingLiked(false);
-//     }
-//   };
-
-//   // Fetch liked hostels when activeSection changes to "liked-pg"
-//   if (activeSection === "liked-pg") {
-//     fetchLikedHostels();
-//   }
-// }, [activeSection]);
 
 // Fetch liked hostels
 useEffect(() => {
@@ -424,59 +252,132 @@ const getFullImageUrl = (imagePath) => {
   return defaultPGImg; // This will now work
 };
 
-  const handleProfileChange = (e) => {
-    const file = e.target.files[0];
-    if (file)
-      setDraftUser({ ...draftUser, profileImage: URL.createObjectURL(file) });
-  };
+  const handleProfileChange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  // Create temporary preview
+  const previewUrl = URL.createObjectURL(file);
+  setDraftUser({ ...draftUser, profileImage: previewUrl });
+  setUser({ ...user, profileImage: previewUrl }); 
+  
+  try {
+    // ✅ Use POST not PUT
+    const token = localStorage.getItem("hlopgToken");
+    const formData = new FormData();
+    formData.append("profileImage", file);
+    
+    const res = await api.post("/auth/update-profile-image", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
+    if (res.data.success) {
+      const updatedUser = res.data.data;
+      
+      // Ensure full URL
+      let profileImageUrl = updatedUser.profileImage;
+      if (profileImageUrl && !profileImageUrl.startsWith('http')) {
+        profileImageUrl = `http://localhost:8080${profileImageUrl}`;
+      }
+      
+      // 2. Update states with real URL
+      setUser({ ...user, profileImage: profileImageUrl });
+      setDraftUser({ ...draftUser, profileImage: profileImageUrl });
+      
+      // 3. Update localStorage immediately
+      const currentUser = JSON.parse(localStorage.getItem("hlopgUser") || "{}");
+      const mergedUser = { ...currentUser, profileImage: profileImageUrl };
+      localStorage.setItem("hlopgUser", JSON.stringify(mergedUser));
+      
+      setMessage("Profile image updated!");
+      setTimeout(() => setMessage(""), 3000);
+    }
+  } catch (error) {
+    console.error("Upload failed:", error);
+    setMessage("Upload failed");
+    setTimeout(() => setMessage(""), 3000);
+  }
+};
+    
+//     if (res.data.success) {
+//       const updatedUser = res.data.data;
+      
+//       // Ensure full URL for profile image
+//       if (updatedUser.profileImage && !updatedUser.profileImage.startsWith('http')) {
+//         updatedUser.profileImage = `http://localhost:8080${updatedUser.profileImage}`;
+//       }
+      
+//       setUser(updatedUser);
+//       setDraftUser(updatedUser);
+      
+//       // Save to localStorage
+//       localStorage.setItem("hlopgUser", JSON.stringify(updatedUser));
+      
+//       setMessage("Profile image updated successfully!");
+//       setTimeout(() => setMessage(""), 3000);
+//     }
+//   } catch (error) {
+//     console.error("Failed to upload profile image:", error);
+//     setMessage("Failed to update profile image");
+//     setTimeout(() => setMessage(""), 3000);
+//   }
+// };
   const handleAadhaarChange = (side, e) => {
     const file = e.target.files[0];
     if (file) setDraftUser({ ...draftUser, [side]: URL.createObjectURL(file) });
   };
 
   const handleUpdatePassword = async () => {
-    if (!passwords.current || !passwords.new || !passwords.confirm) {
-      setPasswordMsg("All fields are required");
-      return;
-    }
+  if (!passwords.current || !passwords.new || !passwords.confirm) {
+    setPasswordMsg("All fields are required");
+    return;
+  }
 
-    if (passwords.new !== passwords.confirm) {
-      setPasswordMsg("Passwords do not match");
-      return;
-    }
+  if (passwords.new !== passwords.confirm) {
+    setPasswordMsg("Passwords do not match");
+    return;
+  }
 
-    try {
-      setLoading(true);
-      setPasswordMsg("");
+  try {
+    setLoading(true);
+    setPasswordMsg("");
 
-      const token = localStorage.getItem("hlopgToken");
+    const token = localStorage.getItem("hlopgToken");
 
-      const res = await api.put(
-        "/auth/change-password",
-        {
-          currentPassword: passwords.current,
-          newPassword: passwords.new,
+    const res = await api.put(
+      "/auth/change-password",
+      {
+        currentPassword: passwords.current,
+        newPassword: passwords.new,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
+      },
+    );
 
-      setPasswordMsg(res.data.message || "Password updated successfully");
+    setPasswordMsg(res.data.message || "Password updated successfully");
 
-      // reset fields
+    // ✅ Clear ALL password fields and hide passwords
+    setTimeout(() => {
       setPasswords({ current: "", new: "", confirm: "" });
-    } catch (err) {
-      setPasswordMsg(
-        err.response?.data?.message || "Failed to update password",
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+      setShowCurrent(false);
+      setShowNew(false);
+      setShowConfirm(false);
+    }, 500); // Small delay to show success message
+
+  } catch (err) {
+    setPasswordMsg(
+      err.response?.data?.message || "Failed to update password",
+    );
+  } finally {
+    setLoading(false);
+  }
+};
   const handleInputChange = (field, value) =>
     setDraftUser({ ...draftUser, [field]: value });
 
@@ -497,14 +398,15 @@ const getFullImageUrl = (imagePath) => {
 
       if (res.data.success) {
         // Update local state with DB response
-        setUser(res.data.user);
-        setDraftUser(res.data.user);
+        const updatedUser = res.data.data;
+        setUser(updatedUser);
+      setDraftUser(updatedUser);
 
         // UI animations
         setAnimateSidebar(true);
         setAnimateGreeting(true);
 
-        if (onSave) onSave(res.data.user);
+        if (onSave) onSave(updatedUser);
 
         setMessage("Changes saved successfully!");
         setTimeout(() => setMessage(""), 3000);
@@ -598,6 +500,7 @@ const getFullImageUrl = (imagePath) => {
                   <img
                     src={
                       draftUser.profileImage ||
+                       user?.profileImage ||
                       "https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
                     }
                     alt="Profile"
@@ -641,12 +544,12 @@ const getFullImageUrl = (imagePath) => {
                     type: "text",
                     editable: true,
                   },
-                  {
-                    label: "City",
-                    field: "city",
-                    type: "text",
-                    editable: false,
-                  },
+                  // {
+                  //   label: "City",
+                  //   field: "city",
+                  //   type: "text",
+                  //   editable: false,
+                  // },
                 ].map((f, idx) => (
                   <div className="form-group" key={idx}>
                     <label>{f.label}</label>
@@ -673,60 +576,6 @@ const getFullImageUrl = (imagePath) => {
         );
 
     
-
-  //     case "liked-pg":
-  // return (
-  //   <>
-  //     <h3>LIKED PG’S LIST</h3>
-  //     {loadingLiked ? (
-  //       <p>Loading liked hostels...</p>
-  //     ) : likedHostels.length > 0 ? (
-  //       <div className="pg-list">
-  //         {likedHostels.map((hostel) => (
-  //           <div className="pg-card liked" key={hostel.hostel_id || hostel.id}>
-  //             <div className="liked-hostel-card">
-  //               <div className="liked-hostel-image">
-  //                 <img 
-  //                   src={hostel.img || hostel.displayImage || "https://cdn-icons-png.flaticon.com/512/4140/4140048.png"} 
-  //                   alt={hostel.hostel_name || hostel.name}
-  //                   onError={(e) => {
-  //                     e.target.onerror = null;
-  //                     e.target.src = "https://cdn-icons-png.flaticon.com/512/4140/4140048.png";
-  //                   }}
-  //                 />
-  //               </div>
-  //               <div className="liked-hostel-info">
-  //                 <h4>❤️ {hostel.hostel_name || hostel.name}</h4>
-  //                 <p>📍 {hostel.area || hostel.city || hostel.address}</p>
-  //                 <p>🏠 Type: {hostel.pg_type || "Hostel"}</p>
-  //                 <p>⭐ Rating: {hostel.rating || "N/A"}</p>
-  //                 <p>💰 Starts from: ₹{hostel.price || hostel.rent || "N/A"}</p>
-  //                 <button 
-  //                   className="view-hostel-btn"
-  //                   onClick={() => navigate(`/hostel/${hostel.hostel_id || hostel.id}`)}
-  //                 >
-  //                   View Details
-  //                 </button>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         ))}
-  //       </div>
-  //     ) : (
-  //       <div className="no-liked-hostels">
-  //         <p>You haven't liked any hostels yet.</p>
-  //         <p className="small-text">Like hostels by clicking the ❤️ icon on hostel cards.</p>
-  //         <button 
-  //           className="browse-hostels-btn"
-  //           onClick={() => navigate("/")}
-  //         >
-  //           Browse Hostels
-  //         </button>
-  //       </div>
-  //     )}
-  //   </>
-  // );
-
   case "liked-pg":
   return (
     <>
@@ -1032,7 +881,7 @@ const getFullImageUrl = (imagePath) => {
           <div
             className={`sidebar-greeting ${animateGreeting ? "fade-greeting" : ""}`}
           >
-            Hello, {user.name || "User"}!
+            Hello, {user?.name || "User"}!
           </div>
 
           {[

@@ -3,6 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import Header from "./Header"; // ✅ Include header
 import "./OwnerLogin.css";
 import api from "../api.jsx";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 
 
  
@@ -14,26 +16,13 @@ const OwnerLogin = () => {
   });
     const [error, setError] = useState(""); 
     const [loading, setLoading]=useState(false);
+
+    const [showPassword, setShowPassword] = useState(false);
+
   
    useEffect(() => {
       setError("");
-    //   const token = localStorage.getItem("hlopgToken");
-    //   // const user = localStorage.getItem("hlopgUser");
-    //   const owner = localStorage.getItem("hlopgOwner");
-  
-    //   if (token && owner) {
-    //   try {
-    //     const ownerData = JSON.parse(owner);
-    //     // Only navigate if it's an owner (userType: "OWNER")
-    //     if (ownerData.userType === "OWNER") {
-    //       navigate("/owner-dashboard");
-    //     }
-    //   } catch (e) {
-    //     console.error("Error parsing owner data:", e);
-    //     localStorage.removeItem("hlopgToken");
-    //     localStorage.removeItem("hlopgOwner");
-    //   }
-    // }
+    
   }, [navigate]);
 
   const handleChange = (e) =>
@@ -105,14 +94,24 @@ const OwnerLogin = () => {
             required
           />
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+          <div className="password-field">
+  <input
+    type={showPassword ? "text" : "password"}
+    name="password"
+    placeholder="Password"
+    value={formData.password}
+    onChange={handleChange}
+    required
+  />
+
+  <span
+    className="password-toggle"
+    onClick={() => setShowPassword(!showPassword)}
+  >
+    {showPassword ? <FaEyeSlash /> : <FaEye />}
+  </span>
+</div>
+
 
           <div className="forgot-password">
             <Link to="/owner-forgot-password">Forgot Password?</Link>

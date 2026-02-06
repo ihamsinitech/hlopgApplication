@@ -3,6 +3,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+
 
 const CommonLogin = () => {
   const navigate = useNavigate();
@@ -12,6 +15,7 @@ const CommonLogin = () => {
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -188,13 +192,45 @@ const CommonLogin = () => {
   }
 
   .login-card input {
-    padding: 12px 14px;
+    padding: 12px 1opx;
     font-size: 14px;
+    
+    
   }
 
   .login-card button {
     padding: 12px;
     font-size: 14.5px;
+  }
+}
+  .password-field {
+  position: relative;
+}
+
+.password-field input {
+  width: 88%;
+  padding-right: 42px; /* space for eye icon */
+}
+
+.toggle-password {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  font-size: 16px;
+}
+
+.toggle-password:hover {
+  color: #7556ff;
+}
+
+/* Mobile fine-tune */
+@media (max-width: 768px) {
+  .toggle-password {
+    right: 1px;
+    font-size: 15px;
   }
 }
 
@@ -222,14 +258,24 @@ const CommonLogin = () => {
               required
             />
 
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+            <div className="password-field">
+  <input
+    type={showPassword ? "text" : "password"}
+    name="password"
+    placeholder="Password"
+    value={formData.password}
+    onChange={handleChange}
+    required
+  />
+
+  <span
+    className="toggle-password"
+    onClick={() => setShowPassword(!showPassword)}
+  >
+    {showPassword ? <FaEyeSlash /> : <FaEye />}
+  </span>
+</div>
+
 
             <div className="forgot-password">
               <a onClick={() => navigate("/forgot-password")}>

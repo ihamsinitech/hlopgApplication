@@ -46,6 +46,9 @@ public class User {
     
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+     @Column(name = "profile_image")
+    private String profileImage;
     
     @PrePersist
     protected void onCreate() {

@@ -2796,7 +2796,7 @@ ${room.amenities ? `\nAmenities: ${Array.isArray(room.amenities) ? room.amenitie
   const getStatusColor = (status) => {
     switch(status) {
       case 'vacant': return '#4CAF50'; // Green
-      case 'occupied': return '#2196F3'; // Blue
+      case 'occupied': return 'red'; // Blue
       case 'maintenance': return '#ff9800'; // Orange
       default: return '#9e9e9e'; // Grey
     }

@@ -319,72 +319,82 @@ const ProfilePage = () => {
   };
 
   const handleChangePasswordSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  
+  // Validate passwords
+  if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
+    setPasswordError("All fields are required");
+    return;
+  }
+  
+  if (passwordData.newPassword.length < 6) {
+    setPasswordError("New password must be at least 6 characters long");
+    return;
+  }
+  
+  if (passwordData.newPassword !== passwordData.confirmPassword) {
+    setPasswordError("New password and confirm password do not match");
+    return;
+  }
+  
+  if (passwordData.currentPassword === passwordData.newPassword) {
+    setPasswordError("New password must be different from current password");
+    return;
+  }
+  
+  try {
+    setChangingPassword(true);
+    setPasswordError("");
     
-    // Validate passwords
-    if (!passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword) {
-      setPasswordError("All fields are required");
-      return;
-    }
+    const token = localStorage.getItem("hlopgToken");
     
-    if (passwordData.newPassword.length < 6) {
-      setPasswordError("New password must be at least 6 characters long");
-      return;
-    }
+    // ✅ Use owner-specific endpoint
+    const response = await api.put("/auth/change-password/owner", {
+      currentPassword: passwordData.currentPassword,
+      newPassword: passwordData.newPassword
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
     
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
-      setPasswordError("New password and confirm password do not match");
-      return;
-    }
-    
-    if (passwordData.currentPassword === passwordData.newPassword) {
-      setPasswordError("New password must be different from current password");
-      return;
-    }
-    
-    try {
-      setChangingPassword(true);
-      setPasswordError("");
+    if (response.data.success) {
+      setPasswordSuccess("Password changed successfully!");
       
-      const token = localStorage.getItem("hlopgToken");
-      const response = await api.put("/auth/change-password", {
-        currentPassword: passwordData.currentPassword,
-        newPassword: passwordData.newPassword
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
+      // Reset form immediately
+      setPasswordData({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: ""
       });
       
-      if (response.data.success) {
-        setPasswordSuccess("Password changed successfully!");
-        
-        // Reset form
-        setPasswordData({
-          currentPassword: "",
-          newPassword: "",
-          confirmPassword: ""
-        });
-        
-        // Clear success message after 3 seconds
-        setTimeout(() => {
-          setPasswordSuccess("");
-        }, 3000);
-      } else {
-        setPasswordError(response.data.message || "Failed to change password");
-      }
-    } catch (error) {
-      console.error("Error changing password:", error);
-      if (error.response?.status === 401) {
-        setPasswordError("Current password is incorrect");
-      } else if (error.response?.data?.message) {
-        setPasswordError(error.response.data.message);
-      } else {
-        setPasswordError("An error occurred. Please try again.");
-      }
-    } finally {
-      setChangingPassword(false);
+      // Hide password visibility
+      setShowPassword({
+        current: false,
+        new: false,
+        confirm: false
+      });
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => {
+        setPasswordSuccess("");
+      }, 3000);
+    } else {
+      setPasswordError(response.data.message || "Failed to change password");
     }
-  };
-
+  } catch (error) {
+    console.error("Error changing password:", error);
+    if (error.response?.status === 401) {
+      setPasswordError("Current password is incorrect");
+    } else if (error.response?.status === 403) {
+      setPasswordError("This account is not an owner account");
+    } else if (error.response?.data?.message) {
+      setPasswordError(error.response.data.message);
+    } else {
+      setPasswordError("An error occurred. Please try again.");
+    }
+  } finally {
+    setChangingPassword(false);
+  }
+};
   const markNotificationAsRead = async (id) => {
     try {
       const token = localStorage.getItem("hlopgToken");
@@ -1032,7 +1042,7 @@ const ProfilePage = () => {
   return (
     <div className="profile-container">
       <div className="back-button-container">
-        <button className="back-btn" onClick={handleBack}>
+        <button className="back-btns" onClick={handleBack}>
           <FaArrowLeft /> Back
         </button>
       </div>
@@ -1085,10 +1095,10 @@ const ProfilePage = () => {
             
             <div className="menu-divider"></div>
             
-            <div className="menu-item logout-item" onClick={handleLogout}>
+            {/* <div className="menu-item logout-item" onClick={handleLogout}>
               <span className="menu-icon"><FaSignOutAlt /></span>
               <span className="menu-text">Logout</span>
-            </div>
+            </div> */}
           </div>
         </div>
 

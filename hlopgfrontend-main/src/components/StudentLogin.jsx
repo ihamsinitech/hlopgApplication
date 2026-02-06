@@ -6,11 +6,15 @@ import Header from "./Header";
 import "./StudentLogin.css";
 import api from "../api.jsx";
 import login from "../assets/login.png";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 
 const StudentLogin = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = location.state?.from || "/";
+  const [showPassword, setShowPassword] = useState(false);
+
   
   const [formData, setFormData] = useState({
     identifier: "",
@@ -124,15 +128,25 @@ const StudentLogin = () => {
             disabled={loading}
           />
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            disabled={loading}
-          />
+          <div className="password-field">
+  <input
+    type={showPassword ? "text" : "password"}
+    name="password"
+    placeholder="Password"
+    value={formData.password}
+    onChange={handleChange}
+    required
+    disabled={loading}
+  />
+
+  <span
+    className="toggle-password"
+    onClick={() => setShowPassword((p) => !p)}
+  >
+    {showPassword ? <FaEyeSlash /> : <FaEye />}
+  </span>
+</div>
+
 
           <div className="forgot-password">
             <Link to="/student-forgot-password">Forgot Password?</Link>

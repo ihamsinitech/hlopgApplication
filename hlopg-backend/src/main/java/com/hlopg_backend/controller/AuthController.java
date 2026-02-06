@@ -3,6 +3,10 @@
 
 package com.hlopg_backend.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,10 +18,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hlopg_backend.model.User;
 import com.hlopg_backend.repository.UserRepository;
@@ -921,6 +928,7 @@ public ResponseEntity<?> getUserById(@RequestHeader("Authorization") String auth
         userData.put("phone", user.getPhone());
         userData.put("gender", user.getGender());
         userData.put("userType", user.getUserType());
+        userData.put("profileImage", user.getProfileImage());
         
         return ResponseEntity.ok(userData);
         
@@ -981,6 +989,296 @@ public ResponseEntity<?> getOwnerById(@RequestHeader("Authorization") String aut
     }
 }
 
+// ========== UPDATE BASIC USER INFO ==========
+@PutMapping("/update-basic-info")
+public ResponseEntity<?> updateBasicInfo(
+        @RequestBody Map<String, String> request,
+        @RequestHeader("Authorization") String authHeader) {
+    
+    System.out.println("🔄 PUT /api/auth/update-basic-info called!");
+    
+    try {
+        // Extract and validate token
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(401).body("Invalid token");
+        }
+        
+        String token = authHeader.substring(7);
+        System.out.println("🔑 Token received: " + token);
+        
+        // Extract user ID from token
+        String[] parts = token.split("_");
+        if (parts.length < 2) {
+            return ResponseEntity.status(401).body("Invalid token format");
+        }
+        
+        Long userId;
+        try {
+            userId = Long.parseLong(parts[1]);
+        } catch (NumberFormatException e) {
+            return ResponseEntity.status(401).body("Invalid user ID in token");
+        }
+        
+        // Find user
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+        
+        System.out.println("✅ User found: " + user.getEmail());
+        
+        // Extract update fields
+        String name = request.get("name");
+        String gender = request.get("gender");
+        
+        // Update fields if provided
+        if (name != null && !name.trim().isEmpty()) {
+            user.setName(name.trim());
+            System.out.println("📝 Updating name to: " + name);
+        }
+        
+        if (gender != null && !gender.trim().isEmpty()) {
+            user.setGender(gender.trim().toUpperCase());
+            System.out.println("📝 Updating gender to: " + gender);
+        }
+        
+        // Save updated user
+        User updatedUser = userRepository.save(user);
+        
+        // Prepare response
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("id", updatedUser.getId());
+        userData.put("name", updatedUser.getName());
+        userData.put("email", updatedUser.getEmail());
+        userData.put("phone", updatedUser.getPhone());
+        userData.put("gender", updatedUser.getGender());
+        userData.put("userType", updatedUser.getUserType());
+        
+        return ResponseEntity.ok(
+            createResponse(true, "Profile updated successfully!", userData)
+        );
+        
+    } catch (Exception e) {
+        System.err.println("❌ Error updating user info: " + e.getMessage());
+        e.printStackTrace();
+        return ResponseEntity.status(500)
+            .body(createResponse(false, "Failed to update profile: " + e.getMessage(), null));
+    }
+}
 
+// ========== CHANGE PASSWORD ==========
+@PutMapping("/change-password")
+public ResponseEntity<?> changePassword(
+        @RequestBody Map<String, String> request,
+        @RequestHeader("Authorization") String authHeader) {
+    
+    System.out.println("🔐 PUT /api/auth/change-password called!");
+    
+    try {
+        // Extract and validate token
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(401).body("Invalid token");
+        }
+        
+        String token = authHeader.substring(7);
+        System.out.println("🔑 Token received: " + token);
+        
+        // Extract user ID from token
+        String[] parts = token.split("_");
+        if (parts.length < 2) {
+            return ResponseEntity.status(401).body("Invalid token format");
+        }
+        
+        Long userId;
+        try {
+            userId = Long.parseLong(parts[1]);
+        } catch (NumberFormatException e) {
+            return ResponseEntity.status(401).body("Invalid user ID in token");
+        }
+        
+        // Find user
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+        
+        // Extract password fields
+        String currentPassword = request.get("currentPassword");
+        String newPassword = request.get("newPassword");
+        
+        if (currentPassword == null || currentPassword.trim().isEmpty()) {
+            return badRequest("Current password is required");
+        }
+        
+        if (newPassword == null || newPassword.trim().isEmpty()) {
+            return badRequest("New password is required");
+        }
+        
+        // Verify current password
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            return badRequest("Current password is incorrect");
+        }
+        
+        // Update password
+        user.setPassword(passwordEncoder.encode(newPassword.trim()));
+        userRepository.save(user);
+        
+        System.out.println("✅ Password updated for user: " + user.getEmail());
+        
+        return ResponseEntity.ok(
+            createResponse(true, "Password changed successfully!", null)
+        );
+        
+    } catch (Exception e) {
+        System.err.println("❌ Error changing password: " + e.getMessage());
+        e.printStackTrace();
+        return ResponseEntity.status(500)
+            .body(createResponse(false, "Failed to change password: " + e.getMessage(), null));
+    }
+}
+
+@PostMapping("/update-profile-image")
+public ResponseEntity<?> updateProfileImage(
+        @RequestParam("profileImage") MultipartFile file,
+        @RequestHeader("Authorization") String authHeader) {
+    
+    System.out.println("🖼️ POST /api/auth/update-profile-image called!");
+    
+    try {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(401).body(createResponse(false, "Invalid token", null));
+        }
+        
+        String token = authHeader.substring(7);
+        String[] parts = token.split("_");
+        Long userId = Long.parseLong(parts[1]);
+        
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+        
+        System.out.println("✅ User found: " + user.getEmail());
+        
+        // Create uploads/profiles directory if it doesn't exist
+        Path uploadPath = Paths.get("uploads/profiles");
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+            System.out.println("📁 Created directory: uploads/profiles");
+        }
+        
+        // Generate unique filename
+        String originalFileName = file.getOriginalFilename();
+        String fileExtension = "";
+        if (originalFileName != null && originalFileName.contains(".")) {
+            fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+        }
+        
+        String fileName = "profile_" + userId + "_" + System.currentTimeMillis() + fileExtension;
+        Path filePath = uploadPath.resolve(fileName);
+        
+        // Save the file
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        System.out.println("💾 File saved: " + filePath.toString());
+        
+        // Save image URL to user
+        String imageUrl = "/uploads/profiles/" + fileName;
+        user.setProfileImage(imageUrl);
+        userRepository.save(user);
+        
+        System.out.println("✅ Profile image saved to database for user: " + user.getEmail());
+        
+        // Return updated user data
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("id", user.getId());
+        userData.put("name", user.getName());
+        userData.put("email", user.getEmail());
+        userData.put("phone", user.getPhone());
+        userData.put("gender", user.getGender());
+        userData.put("userType", user.getUserType());
+        userData.put("profileImage", imageUrl);
+        
+        return ResponseEntity.ok(
+            createResponse(true, "Profile image updated successfully!", userData)
+        );
+        
+    } catch (Exception e) {
+        System.err.println("❌ Error uploading profile image: " + e.getMessage());
+        e.printStackTrace();
+        return ResponseEntity.status(500)
+            .body(createResponse(false, "Failed to upload profile image: " + e.getMessage(), null));
+    }
+}
+
+// ========== CHANGE PASSWORD FOR OWNER ==========
+@PutMapping("/change-password/owner")
+public ResponseEntity<?> changePasswordOwner(
+        @RequestBody Map<String, String> request,
+        @RequestHeader("Authorization") String authHeader) {
+    
+    System.out.println("🔐 PUT /api/auth/change-password/owner called!");
+    
+    try {
+        // Extract and validate token
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(401).body(createResponse(false, "Invalid token", null));
+        }
+        
+        String token = authHeader.substring(7);
+        System.out.println("🔑 Token received: " + token);
+        
+        // Extract owner ID from token (format: hlopg_owner_123_timestamp)
+        String[] parts = token.split("_");
+        if (parts.length < 3) {
+            return ResponseEntity.status(401).body(createResponse(false, "Invalid token format", null));
+        }
+        
+        Long ownerId;
+        try {
+            ownerId = Long.parseLong(parts[2]); // owner ID is at index 2
+        } catch (NumberFormatException e) {
+            return ResponseEntity.status(401).body(createResponse(false, "Invalid owner ID in token", null));
+        }
+        
+        // Find owner
+        User owner = userRepository.findById(ownerId)
+            .orElseThrow(() -> new RuntimeException("Owner not found"));
+        
+        System.out.println("✅ Owner found: " + owner.getEmail());
+        System.out.println("✅ Owner Type: " + owner.getUserType());
+        
+        // Verify it's an owner
+        if (!"OWNER".equals(owner.getUserType())) {
+            return ResponseEntity.status(403).body(createResponse(false, "User is not an owner", null));
+        }
+        
+        // Extract password fields
+        String currentPassword = request.get("currentPassword");
+        String newPassword = request.get("newPassword");
+        
+        if (currentPassword == null || currentPassword.trim().isEmpty()) {
+            return badRequest("Current password is required");
+        }
+        
+        if (newPassword == null || newPassword.trim().isEmpty()) {
+            return badRequest("New password is required");
+        }
+        
+        // Verify current password
+        if (!passwordEncoder.matches(currentPassword, owner.getPassword())) {
+            return badRequest("Current password is incorrect");
+        }
+        
+        // Update password
+        owner.setPassword(passwordEncoder.encode(newPassword.trim()));
+        userRepository.save(owner);
+        
+        System.out.println("✅ Password updated for owner: " + owner.getEmail());
+        
+        return ResponseEntity.ok(
+            createResponse(true, "Password changed successfully!", null)
+        );
+        
+    } catch (Exception e) {
+        System.err.println("❌ Error changing owner password: " + e.getMessage());
+        e.printStackTrace();
+        return ResponseEntity.status(500)
+            .body(createResponse(false, "Failed to change password: " + e.getMessage(), null));
+    }
+}
 
 }

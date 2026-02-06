@@ -5,8 +5,12 @@ import Header from "./Header";
 import api from "../api.jsx";
 import Login from "../assets/login.png";
 
+
+
 const StudentSignup = () => {
   const navigate = useNavigate();
+  
+
 
   const [formData, setFormData] = useState({
     name: "",

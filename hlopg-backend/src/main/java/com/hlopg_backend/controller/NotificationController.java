@@ -1,16 +1,26 @@
 package com.hlopg_backend.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.hlopg_backend.model.Notification;
 import com.hlopg_backend.repository.NotificationRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-
-import java.util.*;
 
 @RestController
 @RequestMapping("/api/owner")
@@ -22,65 +32,171 @@ public class NotificationController {
     
     @Value("${jwt.secret}")
     private String jwtSecret;
-
-    // Get notifications for owner
+    
     @GetMapping("/notifications")
-    public ResponseEntity<Map<String, Object>> getOwnerNotifications(
-            @RequestHeader("Authorization") String authHeader) {
+public ResponseEntity<Map<String, Object>> getOwnerNotifications(
+        @RequestHeader(value = "Authorization", required = false) String authHeader) {
+    
+    Map<String, Object> response = new HashMap<>();
+    
+    try {
+        System.out.println("🔔 Fetching owner notifications...");
         
-        Map<String, Object> response = new HashMap<>();
+        // Check if auth header exists
+        if (authHeader == null || authHeader.trim().isEmpty()) {
+            System.out.println("❌ Authorization header is missing");
+            response.put("success", false);
+            response.put("message", "Authorization header is required");
+            return ResponseEntity.status(401).body(response);
+        }
         
+        // Check if it's a Bearer token
+        if (!authHeader.startsWith("Bearer ")) {
+            System.out.println("❌ Invalid Authorization format. Expected Bearer token");
+            response.put("success", false);
+            response.put("message", "Invalid Authorization format. Expected Bearer token");
+            return ResponseEntity.status(401).body(response);
+        }
+        
+        String token = authHeader.substring(7); // Remove "Bearer " prefix
+        System.out.println("🔔 Token length: " + token.length());
+        
+        // Try to parse the token
+        Claims claims;
         try {
-            // Extract token and get owner ID
-            String token = authHeader.replace("Bearer ", "");
-            
-            Claims claims = Jwts.parserBuilder()
+            claims = Jwts.parserBuilder()
                 .setSigningKey(jwtSecret.getBytes())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-            
-            String ownerIdStr = claims.getSubject();
-            Long ownerId = Long.parseLong(ownerIdStr);
-            
-            // Get notifications for this owner, ordered by most recent first
-            List<Notification> notifications = notificationRepository.findByOwnerIdOrderByCreatedAtDesc(ownerId);
-            
-            // Format response
-            List<Map<String, Object>> formattedNotifications = new ArrayList<>();
-            for (Notification notification : notifications) {
-                Map<String, Object> notifMap = new HashMap<>();
-                notifMap.put("id", notification.getId());
-                notifMap.put("type", notification.getType());
-                notifMap.put("title", notification.getTitle());
-                notifMap.put("message", notification.getMessage());
-                notifMap.put("hostel_id", notification.getHostelId());
-                notifMap.put("hostel_name", notification.getHostelName());
-                notifMap.put("hostel_address", notification.getHostelAddress());
-                notifMap.put("user_id", notification.getUserId());
-                notifMap.put("user_name", notification.getUserName());
-                notifMap.put("user_email", notification.getUserEmail());
-                notifMap.put("user_phone", notification.getUserPhone());
-                notifMap.put("sharing_type", notification.getSharingType());
-                notifMap.put("booking_id", notification.getBookingId());
-                notifMap.put("read", notification.getRead());
-                notifMap.put("created_at", notification.getCreatedAt());
-                
-                formattedNotifications.add(notifMap);
-            }
-            
-            response.put("success", true);
-            response.put("data", formattedNotifications);
-            
-            return ResponseEntity.ok(response);
-            
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("❌ Token parsing error: " + e.getMessage());
             response.put("success", false);
-            response.put("message", "Failed to fetch notifications: " + e.getMessage());
-            return ResponseEntity.badRequest().body(response);
+            response.put("message", "Invalid token: " + e.getMessage());
+            return ResponseEntity.status(401).body(response);
         }
+        
+        // Get owner ID from token
+        String ownerIdStr = claims.getSubject();
+        System.out.println("🔔 Owner ID from token: " + ownerIdStr);
+        
+        if (ownerIdStr == null || ownerIdStr.trim().isEmpty()) {
+            response.put("success", false);
+            response.put("message", "Token does not contain owner ID");
+            return ResponseEntity.status(401).body(response);
+        }
+        
+        Long ownerId;
+        try {
+            ownerId = Long.parseLong(ownerIdStr);
+        } catch (NumberFormatException e) {
+            System.out.println("❌ Invalid owner ID format: " + ownerIdStr);
+            response.put("success", false);
+            response.put("message", "Invalid owner ID format");
+            return ResponseEntity.status(400).body(response);
+        }
+        
+        System.out.println("🔔 Fetching notifications for owner ID: " + ownerId);
+        
+        // Get notifications for this owner, ordered by most recent first
+        List<Notification> notifications = notificationRepository.findByOwnerIdOrderByCreatedAtDesc(ownerId);
+        System.out.println("🔔 Found " + notifications.size() + " notifications");
+        
+        // Format response
+        List<Map<String, Object>> formattedNotifications = new ArrayList<>();
+        for (Notification notification : notifications) {
+            Map<String, Object> notifMap = new HashMap<>();
+            notifMap.put("id", notification.getId());
+            notifMap.put("type", notification.getType());
+            notifMap.put("title", notification.getTitle());
+            notifMap.put("message", notification.getMessage());
+            notifMap.put("hostel_id", notification.getHostelId());
+            notifMap.put("hostel_name", notification.getHostelName());
+            notifMap.put("hostel_address", notification.getHostelAddress());
+            notifMap.put("user_id", notification.getUserId());
+            notifMap.put("user_name", notification.getUserName());
+            notifMap.put("user_email", notification.getUserEmail());
+            notifMap.put("user_phone", notification.getUserPhone());
+            notifMap.put("sharing_type", notification.getSharingType());
+            notifMap.put("booking_id", notification.getBookingId());
+            notifMap.put("read", notification.getRead() != null ? notification.getRead() : false);
+            notifMap.put("created_at", notification.getCreatedAt());
+            
+            formattedNotifications.add(notifMap);
+        }
+        
+        response.put("success", true);
+        response.put("data", formattedNotifications);
+        
+        System.out.println("✅ Successfully returned " + formattedNotifications.size() + " notifications");
+        return ResponseEntity.ok(response);
+        
+    } catch (Exception e) {
+        System.err.println("❌ Unexpected error in getOwnerNotifications:");
+        e.printStackTrace();
+        response.put("success", false);
+        response.put("message", "Internal server error: " + e.getMessage());
+        return ResponseEntity.status(500).body(response);
     }
+}
+    // Get notifications for owner
+    // @GetMapping("/notifications")
+    // public ResponseEntity<Map<String, Object>> getOwnerNotifications(
+    //         @RequestHeader("Authorization") String authHeader) {
+        
+    //     Map<String, Object> response = new HashMap<>();
+        
+    //     try {
+    //         // Extract token and get owner ID
+    //         String token = authHeader.replace("Bearer ", "");
+            
+    //         Claims claims = Jwts.parserBuilder()
+    //             .setSigningKey(jwtSecret.getBytes())
+    //             .build()
+    //             .parseClaimsJws(token)
+    //             .getBody();
+            
+    //         String ownerIdStr = claims.getSubject();
+    //         Long ownerId = Long.parseLong(ownerIdStr);
+            
+    //         // Get notifications for this owner, ordered by most recent first
+    //         List<Notification> notifications = notificationRepository.findByOwnerIdOrderByCreatedAtDesc(ownerId);
+            
+    //         // Format response
+    //         List<Map<String, Object>> formattedNotifications = new ArrayList<>();
+    //         for (Notification notification : notifications) {
+    //             Map<String, Object> notifMap = new HashMap<>();
+    //             notifMap.put("id", notification.getId());
+    //             notifMap.put("type", notification.getType());
+    //             notifMap.put("title", notification.getTitle());
+    //             notifMap.put("message", notification.getMessage());
+    //             notifMap.put("hostel_id", notification.getHostelId());
+    //             notifMap.put("hostel_name", notification.getHostelName());
+    //             notifMap.put("hostel_address", notification.getHostelAddress());
+    //             notifMap.put("user_id", notification.getUserId());
+    //             notifMap.put("user_name", notification.getUserName());
+    //             notifMap.put("user_email", notification.getUserEmail());
+    //             notifMap.put("user_phone", notification.getUserPhone());
+    //             notifMap.put("sharing_type", notification.getSharingType());
+    //             notifMap.put("booking_id", notification.getBookingId());
+    //             notifMap.put("read", notification.getRead());
+    //             notifMap.put("created_at", notification.getCreatedAt());
+                
+    //             formattedNotifications.add(notifMap);
+    //         }
+            
+    //         response.put("success", true);
+    //         response.put("data", formattedNotifications);
+            
+    //         return ResponseEntity.ok(response);
+            
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         response.put("success", false);
+    //         response.put("message", "Failed to fetch notifications: " + e.getMessage());
+    //         return ResponseEntity.badRequest().body(response);
+    //     }
+    // }
 
     // Mark notification as read
     @PutMapping("/notifications/{id}/read")

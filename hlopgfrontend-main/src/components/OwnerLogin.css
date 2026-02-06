@@ -108,3 +108,26 @@
     font-size: 13px;
   }
 }
+.password-field {
+  position: relative;
+  width: 100%;
+}
+
+.password-field input {
+  width: 85%;
+  padding-right: 42px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+.password-toggle:hover {
+  color: #000;
+}

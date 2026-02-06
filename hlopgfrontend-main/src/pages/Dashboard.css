@@ -474,6 +474,8 @@
   .pg-cards-grid {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 12px;
+    height: 160px;
+    width: 350px;
   }
 
   .pg-card-name {
@@ -485,31 +487,117 @@
     height: 110px;
   }
 
-  /* Chart Stats */
-  .chart-stats {
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
-  }
+   
 
-  .chart-stat .stat-value {
-    font-size: 22px;
-  }
-
-  /* Chart Wrapper */
   .chart-wrapper {
-    height: 220px;
-    gap: 2px;
+    display: flex;
+    flex-direction: row;
+    height: 280px;
+    position: relative;
   }
 
+  /* Y-axis positioning */
+  .y-axis {
+    width: 40px;
+    padding-right: 10px;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0; /* Prevent shrinking */
+  }
+
+  .y-axis > span {
+    font-size: 12px;
+    color: #666;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: none;
+    width: auto;
+    margin-bottom: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* X-axis positioning */
+  .x-axis {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid #e0e0e0;
+    margin-top: auto;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    overflow: visible; /* Allow labels to show */
+  }
+
+  .x-label {
+    font-size: 12px;
+    color: #666;
+    flex: 1;
+    text-align: center;
+    transform: rotate(-45deg);
+    transform-origin: center;
+    white-space: nowrap;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    position: relative;
+  }
+
+  .chart-content {
+    height: 100%;
+    overflow: visible;
+  }
+  
+  .chart-bars {
+    height: calc(100% - 50px) !important;
+    padding: 0 10px;
+    align-items: flex-end;
+    display: flex !important; /* Force display */
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
   .chart-bar-container {
-    margin: 0 2px;
+    height: 100%;
+    display: flex !important;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 4px;
+    margin: 0 4px;
   }
-
+  
+  /* Ensure bars are visible */
   .chart-bar {
-    width: 18px;
+    width: 20px;
+    min-height: 20px !important; /* Minimum height to ensure visibility */
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative;
   }
-
+  
+  /* Force colors to show */
+  .chart-bar.revenue {
+    background: linear-gradient(to top, #5B5FF8, #8A8DFF) !important;
+    background-color: #5B5FF8 !important;
+  }
+  
+  .chart-bar.bookings {
+    background: linear-gradient(to top, #4CAF50, #66BB6A) !important;
+    background-color: #4CAF50 !important;
+  }
+  
+  /* Add border to make bars more visible */
+  .chart-bar {
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
   /* Complaints & Reviews Cards */
   .complaints-cards-grid,
   .reviews-cards-grid {
@@ -536,6 +624,7 @@
   }
 }
 
+/* =================== SMALL MOBILE <=480px =================== */
 /* =================== SMALL MOBILE <=480px =================== */
 @media (max-width: 480px) {
   .dashboard-container {
@@ -571,22 +660,76 @@
   /* Chart Container */
   .chart-container {
     padding: 12px;
+    overflow-x: auto;
   }
 
+  /* Chart adjustments for small mobile */
   .chart-wrapper {
-    height: 180px;
-  }
-
-  .chart-bar {
-    width: 12px;
+    height: 220px; /* Increased from 180px */
+    flex-direction: row;
+    min-width: 320px; /* Minimum width */
   }
 
   .y-axis {
-    width: 30px;
+    width: 35px;
+  }
+
+  .y-axis > span {
+    font-size: 10px;
+    height: 80px;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: none;
+    margin-bottom: 0;
+  }
+
+  .y-labels {
+    font-size: 10px;
+    padding: 10px 0;
+  }
+
+  .x-axis {
+    padding: 8px 0;
+    height: 50px; /* Fixed height for x-axis */
+  }
+
+  .x-label {
+    font-size: 10px;
+    height: 35px;
+    transform: rotate(-45deg);
+    transform-origin: center;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chart-bars {
+    height: calc(100% - 70px); /* Account for x-axis height */
+    padding: 0 3px;
+  }
+
+  .chart-bar {
+    width: 16px; /* Even thinner bars for small screens */
+  }
+
+  .chart-bar-container {
+    margin: 0 2px;
+  }
+
+  /* Chart stats adjustments for small mobile */
+  .chart-stats {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
   }
 
   .chart-stat .stat-value {
     font-size: 18px;
+  }
+
+  .chart-stat .stat-label {
+    font-size: 11px;
   }
 
   /* Complaints & Reviews Cards */
@@ -612,11 +755,50 @@
   /* Chart legend adjustment */
   .chart-legend {
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     align-items: flex-start;
+    margin-top: 15px;
   }
 
   .legend-item {
-    font-size: 12px;
+    font-size: 11px;
+  }
+
+  .legend-color {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* =================== VERY SMALL MOBILE <=360px =================== */
+@media (max-width: 360px) {
+  .chart-wrapper {
+    height: 200px;
+  }
+
+  .y-axis {
+    width: 30px;
+  }
+
+  .y-axis > span {
+    font-size: 9px;
+  }
+
+  .y-labels {
+    font-size: 9px;
+  }
+
+  .x-label {
+    font-size: 9px;
+    transform: rotate(-90deg); /* Vertical labels for very small screens */
+    height: 40px;
+  }
+
+  .chart-bar {
+    width: 12px;
+  }
+
+  .chart-bars {
+    padding: 0 2px;
   }
 }

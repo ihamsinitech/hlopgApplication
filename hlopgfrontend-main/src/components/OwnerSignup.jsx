@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import "./OwnerSignup.css";
 import api from "../api.jsx";
 
+
 const OwnerSignup = () => {
   const navigate = useNavigate();
 
@@ -30,6 +31,7 @@ const [otpLoading, setOtpLoading] = useState(false);
 
   const phoneRef = useRef(null);
   const emailRef = useRef(null);
+
 
   // Regex patterns
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -191,61 +193,7 @@ const [otpLoading, setOtpLoading] = useState(false);
     }
 };
 
-  // Verify OTP
-  // const verifyOTP = async (e) => {
-  // e.preventDefault();
-  // const enteredOTP = otpValues.join("");
-  // setOtpLoading(true);
-  // setOtpError("");
-
-  // try {
-  //   console.log("🔐 Verifying OTP:", enteredOTP);
-    
-  //   // ✅ FIRST: Try owner-specific endpoint with correct parameter name
-  //   const res = await api.post("/auth/verify-otp", {
-  //     identifier: formData.phone,
-  //     otpCode: enteredOTP, // ✅ CORRECT: camelCase
-  //     purpose: "REGISTRATION",
-  //   });
-    
-  //   console.log("✅ OTP verification response:", res.data);
-    
-  //   if (res.data.success) {
-  //     // Auto-login after OTP verification
-  //     try {
-  //       const loginRes = await api.post("/auth/login/owner", {
-  //         identifier: formData.email,
-  //         password: formData.password
-  //       });
-        
-  //       if (loginRes.data.success) {
-  //         const { token, ownerData } = loginRes.data.data;
-          
-  //         localStorage.setItem("hlopgToken", token);
-  //         localStorage.setItem("hlopgOwner", JSON.stringify(ownerData));
-          
-  //         alert("✅ Registration successful! You are now logged in.");
-  //         setShowOTPModal(false);
-  //         navigate("/owner-dashboard");
-  //       } else {
-  //         alert("✅ Registration successful! Please login manually.");
-  //         navigate("/ownerlogin");
-  //       }
-  //     } catch (loginErr) {
-  //       console.error("Auto-login failed:", loginErr);
-  //       alert("✅ Registration successful! Please login.");
-  //       navigate("/ownerlogin");
-  //     }
-  //   } else {
-  //       setOtpError(res.data.message || "Invalid OTP");
-  //     }
-  //   } catch (err) {
-  //     console.error("❌ OTP verification error:", err);
-  //     setOtpError("OTP verification failed. Please try again.");
-  //   } finally {
-  //     setOtpLoading(false);
-  //   }
-  // };
+  
 
 const verifyOTP = async (e) => {
   e.preventDefault();
