@@ -776,6 +776,9 @@ input.invalid {
     width: 70%;
     padding: 20px;
   }
+  .modal-cancel,.modal-logout{
+    margin-top: 10px;
+  }
 
   /* ===== Liked PG Section ===== */
   .liked-pg-container {
